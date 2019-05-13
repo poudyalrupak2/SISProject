@@ -1,0 +1,128 @@
+﻿@model SISProject.ViewModel.NRViewModel
+
+<link href="/BookDempcss/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/BookDemo/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
+<link href="/BookDemo/css/animate.css" rel="stylesheet" type="text/css">
+<link href="/BookDemo/css/css-plugin-collections.css" rel="stylesheet" />
+<link id="menuzord-menu-skins" href="/BookDemo/css/menuzord-skins/menuzord-rounded-boxed.css" rel="stylesheet" />
+<!-- CSS | Main style file -->
+<link href="/BookDemo/css/style-main.css" rel="stylesheet" type="text/css">
+<!-- CSS | Preloader Styles -->
+<link href="/BookDemo/css/preloader.css" rel="stylesheet" type="text/css">
+<!-- CSS | Custom Margin Padding Collection -->
+<link href="/BookDemo/css/custom-bootstrap-margin-padding.css" rel="stylesheet" type="text/css">
+<!-- CSS | Responsive media queries -->
+<link href="/BookDemo/css/responsive.css" rel="stylesheet" type="text/css">
+<!-- CSS | Style css. This is the file where you can place your own custom css code. Just uncomment it and use it. -->
+<!-- <link href="css/style.css" rel="stylesheet" type="text/css"> -->
+<!-- CSS | Theme Color -->
+<link href="/BookDemo/css/colors/theme-skin-color-set-1.css" rel="stylesheet" type="text/css">
+
+<!-- external javascripts -->
+<script src="/BookDemo/js/jquery-2.2.4.min.js"></script>
+<script src="/BookDemo/js/jquery-ui.min.js"></script>
+<script src="/BookDemo/js/bootstrap.min.js"></script>
+<!-- JS | jquery plugin collection for this theme -->
+<script src="/BookDemo/js/jquery-plugin-collection.js"></script>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 blog-pull-right">
+                <div class="row">
+                    <h1>Recomended articles</h1>
+                    @foreach (var item in Model.RecomendedArticles)
+                    {
+                        <div class="col-sm-6 col-md-4">
+                            <div class="service-block bg-white">
+                                <div class="thumb">
+                                    @if (item.imagepath != null)
+                                    {
+                                        <img alt="featured project" src="@item.imagepath" class="img-fullwidth" height="265" width="195">
+                                    }
+                                    else
+                                    {
+                                        <img alt="featured project" src="http://placehold.it/265x195" class="img-fullwidth">
+
+                                    }
+                                </div>
+                                <div class="content text-left flip p-25 pt-0">
+                                    <h4 class="line-bottom mb-10">@item.Name </h4>
+                                    <p>@item.Description</p>
+                                    <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Details","Notes",new { id = item.Id })">view details</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <nav>
+                    <ul class="pagination theme-colored xs-pull-center m-0">
+                        <li> <a href="#" aria-label="Previous"> <span aria-hidden="true">«</span> </a> </li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">...</a></li>
+                        <li> <a href="#" aria-label="Next"> <span aria-hidden="true">»</span> </a> </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 blog-pull-right">
+                <div class="row">
+                    @foreach (var item in Model.uplodedFiles)
+                    {
+                        <div class="col-sm-6 col-md-4">
+                            <div class="service-block bg-white">
+                                <div class="thumb">
+                                    @if (item.imagepath != null)
+                                    {
+                                        <img alt="featured project" src="@item.imagepath" class="img-fullwidth" height="265" width="195">
+                                    }
+                                    else
+                                    {
+                                        <img alt="featured project" src="http://placehold.it/265x195" class="img-fullwidth">
+
+                                    }
+                                </div>
+                                <div class="content text-left flip p-25 pt-0">
+                                    <h4 class="line-bottom mb-10">@item.Name </h4>
+                                    <p>@item.Description</p>
+                                    <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="page-courses-accounting-technologies.html">view details</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <nav>
+                    <ul class="pagination theme-colored xs-pull-center m-0">
+                        <li> <a href="#" aria-label="Previous"> <span aria-hidden="true">«</span> </a> </li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">...</a></li>
+                        <li> <a href="#" aria-label="Next"> <span aria-hidden="true">»</span> </a> </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+

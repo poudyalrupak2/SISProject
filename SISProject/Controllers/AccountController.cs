@@ -24,7 +24,7 @@ namespace HotelManagemant.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            return View();  
         }
 
 
@@ -32,7 +32,7 @@ namespace HotelManagemant.Controllers
         {
             return View();
         }
-
+        Role role = new Role();
         [HttpPost]
         public ActionResult Login(LoginViewModel l, string ReturnUrl = "")
         {
@@ -52,20 +52,13 @@ namespace HotelManagemant.Controllers
 
                         if (Url.IsLocalUrl(ReturnUrl))
                         {
-                            var objAdmin = context.login.FirstOrDefault(a => (a.Email == l.Email));
-                            if (objAdmin.Role == "Admin")
-                            {
-                                FormsAuthentication.SetAuthCookie(l.Email, false);
-
-                                return Redirect(ReturnUrl);
-                            }
-                            else
-                            {
+                               var objAdmin = context.login.FirstOrDefault(a => (a.Email == l.Email));
+                            
                                 FormsAuthentication.SetAuthCookie(l.Email, false);
 
 
                                 return Redirect(ReturnUrl);
-                            }
+                            
                         }
                         else
                         {
@@ -74,12 +67,24 @@ namespace HotelManagemant.Controllers
                             Session.Add("category", Admin.Role);
                             var objAdmin = context.login.FirstOrDefault(a => (a.Email == l.Email));
                             FormsAuthentication.SetAuthCookie(l.Email, false);
-                            return RedirectToAction("Index", "Home");
+                            string[] roles = role.GetRolesForUser(objAdmin.Email);
+                            if (roles.Contains("SuperAdmin"))
+                            {
+                                return RedirectToAction("Index", "Teachers");
 
-
-
+                            }
+                            if (roles.Contains("teacher"))
+                            {
+                              
+                                return RedirectToAction("Index", "UploadedFiles");
+                            }
+                            if (roles.Contains("student"))
+                            {
+                                
+                                return RedirectToAction("Index", "Notes");
+                            }
                         }
-
+                       
                     }
                     else if (l.Password == pass)
                     {
@@ -130,26 +135,17 @@ namespace HotelManagemant.Controllers
             }
             return PartialView();
         }
-        //public ActionResult Logout()
-        //{
+        public ActionResult Logout()
+        {
 
-        //    var Sesson = Session["userEmail"].ToString();
-        //    string category = db.Login.Where(t => t.Email == Sesson).Select(t => t.Category).FirstOrDefault();
-        //    if (category != null)
-        //    {
-        //        FormsAuthentication.SignOut();
+            
+                FormsAuthentication.SignOut();
 
-        //        Session.Abandon();
-        //        return RedirectToAction("Login");
-        //    }
-        //    else
-        //    {
-        //        FormsAuthentication.SignOut();
-
-        //        Session.Abandon();
-        //        return RedirectToAction("Login");
-        //    }
-        //}
+                Session.Abandon();
+                return RedirectToAction("Login");
+            
+            
+        }
 
     }
 }

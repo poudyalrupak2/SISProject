@@ -1,0 +1,242 @@
+﻿@model SISProject.ViewModel.SimilarViewModel
+
+<style>
+    body {
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 0.9rem;
+    }
+
+    #app {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    #toolbar {
+        display: flex;
+        align-items: center;
+        background-color: #555;
+        color: #fff;
+        padding: 0.5em;
+    }
+
+        #toolbar button,
+        #page-mode input {
+            color: currentColor;
+            background-color: transparent;
+            font: inherit;
+            border: 1px solid currentColor;
+            border-radius: 3px;
+            padding: 0.25em 0.5em;
+        }
+
+            #toolbar button:hover,
+            #toolbar button:focus,
+            #page-mode input:hover,
+            #page-mode input:focus {
+                color: lightGreen;
+            }
+
+    #page-mode {
+        display: flex;
+        align-items: center;
+        padding: 0.25em 0.5em;
+    }
+
+    #viewport-container {
+        flex: 1;
+        background: #eee;
+        overflow: auto;
+    }
+
+    #viewport {
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+        #viewport > div {
+            text-align: center;
+            max-width: 100%;
+        }
+
+        #viewport canvas {
+            width: 100%;
+            box-shadow: 0 2px 5px gray;
+        }
+</style>
+<body>
+    <div id='pdf-viewer'></div>
+    <div id="app">
+        <div role="toolbar" id="toolbar">
+            this is only for viewing purpose.
+            <div id="1" value="@Model.UpdatedFileName"></div>
+        </div>
+        <div id="viewport-container"><div role="main" id="viewport"></div></div>
+    </div>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 blog-pull-right">
+                    <div class="row">
+                        <h1>Similar articles</h1>
+                        @foreach (var item in Model.uplodedFiles)
+                        {
+                            <div class="col-sm-6 col-md-4">
+                                <div class="service-block bg-white">
+                                    <div class="thumb">
+                                        @if (item.imagepath != null)
+                                        {
+                                            <img alt="featured project" src="@item.imagepath" class="img-fullwidth" height="265" width="195">
+                                        }
+                                        else
+                                        {
+                                            <img alt="featured project" src="http://placehold.it/265x195" class="img-fullwidth">
+
+                                        }
+                                    </div>
+                                    <div class="content text-left flip p-25 pt-0">
+                                        <h4 class="line-bottom mb-10">@item.Name </h4>
+                                        <p>@item.Description</p>
+                                        <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Details","Notes",new { id = item.Id })">view details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <nav>
+                        <ul class="pagination theme-colored xs-pull-center m-0">
+                            <li> <a href="#" aria-label="Previous"> <span aria-hidden="true">«</span> </a> </li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">...</a></li>
+                            <li> <a href="#" aria-label="Next"> <span aria-hidden="true">»</span> </a> </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <script src="https://unpkg.com/pdfjs-dist@2.0.489/build/pdf.min.js"></script>
+    <script>
+        (function () {
+            var url = document.getElementById("1").getAttribute('value');
+            let currentPageIndex = 0;
+            let pageMode = 1;
+            let cursorIndex = Math.floor(currentPageIndex / pageMode);
+            let pdfInstance = null;
+            let totalPagesCount = 0;
+            var numPages = 0;
+            var currPage = 1; //Pages are 1-based not 0-based
+            var thePDF = null;
+            //const viewport = document.querySelector("#viewport");
+            pdfjsLib.getDocument(url).promise.then(function (pdf) {
+                thePdf = pdf;
+                viewer = document.getElementById('viewport');
+
+                for (page = 1; page <= pdf.numPages; page++) {
+                    canvas = document.createElement("canvas");
+                    canvas.className = 'pdf-page-canvas';
+                    viewer.appendChild(canvas);
+                    renderPage(page, canvas);
+                }
+            });
+
+            function renderPage(pageNumber, canvas) {
+                thePdf.getPage(pageNumber).then(function (page) {
+                    viewport = page.getViewport(1);
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport });
+                });
+            };
+
+
+            //    window.initPDFViewer = function (pdfURL) {
+            //        pdfjsLib.getDocument(pdfURL).then(pdf => {
+
+
+            //            //pdfInstance = pdf;
+            //            //totalPagesCount = pdf.numPages;
+            //            //numPages = pdf.numPages;
+            //            thePDF = pdf;
+
+            //            //How many pages it has
+            //            numPages = pdf.numPages;
+
+            //            //Start with first page
+            //            pdf.getPage(1).then(handlePages);
+
+            //            //initPager();
+            //            //initPageMode();
+            //            //render();
+            //        });
+            //    };
+            //    function handlePages(page) {
+            //        //This gives us the page's dimensions at full scale
+            //        var viewport = page.getViewport(1);
+
+            //        ////We'll create a canvas for each page to draw it on
+            //        var canvas = document.createElement("canvas");
+            //        canvas.style.display = "block";
+            //        var context = canvas.getContext('2d');
+            //        canvas.height = viewport.height;
+            //        canvas.width = viewport.width;
+
+            //        //Draw it on the canvas
+            //        page.render({ canvasContext: context, viewport: viewport });
+
+            //        document.body.appendChild(canvas);
+
+            //        //cursorIndex = Math.floor(currentPageIndex / pageMode);
+            //        //const startPageIndex = cursorIndex * pageMode;
+            //        //const endPageIndex =
+            //        //    startPageIndex + pageMode < totalPagesCount
+            //        //        ? startPageIndex + pageMode - 1
+            //        //        : totalPagesCount - 1;
+
+            //        //const renderPagesPromises = [];
+            //        //for (let i = startPageIndex; i <= endPageIndex; i++) {
+            //        //    renderPagesPromises.push(pdfInstance.getPage(i + 1));
+            //        //}
+
+            //        //Promise.all(renderPagesPromises).then(pages => {
+            //        //    const pagesHTML = `<div style="width: ${
+            //        //        pageMode > 1 ? "50%" : "100%"
+            //        //        }"><canvas></canvas></div>`.repeat(pages.length);
+            //        //    viewport.innerHTML = pagesHTML;
+            //        //    pages.forEach(renderPage);
+            //        //});
+
+            //        //Move to next page
+            //        currPage++;
+            //        if (thePDF !== null && currPage <= numPages) {
+            //            canvas = document.createElement("canvas");
+            //            thePDF.getPage(currPage).then(handlePages);
+
+            //        }
+            //    }
+
+
+        })();
+
+    </script>
+    @*<script>
+            initPDFViewer("/pdf/34/Internet-Technology.pdf");
+        </script>*@
+</body>
