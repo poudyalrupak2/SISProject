@@ -1,0 +1,115 @@
+﻿@model IEnumerable<SISProject.Models.Notice>
+@{
+    if (Session["Category"].ToString() == "SuperAdmin")
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    if (Session["Category"].ToString() == "teacher")
+    {
+        Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
+
+    }
+}
+
+<link rel="stylesheet" href="assets/styles/style.min.css">
+
+<!-- Material Design Icon -->
+<link rel="stylesheet" href="assets/fonts/material-design/css/materialdesignicons.css">
+
+<!-- mCustomScrollbar -->
+<link rel="stylesheet" href="assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
+
+<!-- Waves Effect -->
+<link rel="stylesheet" href="assets/plugin/waves/waves.min.css">
+
+<!-- Sweet Alert -->
+<!-- Data Tables -->
+<link rel="stylesheet" href="assets/plugin/datatables/media/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="assets/plugin/datatables/extensions/Responsive/css/responsive.bootstrap.min.css">
+
+
+<a href="@Url.Action("Create","Notices")" class="btn  btn-success">
+    <i class="fa fa-plus"></i> Create New
+</a>
+
+<table class="table table-responsive table-bordered" id="example">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortDescription)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.NoticeType)
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortDescription)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoticeType)
+                </td>
+               
+                <td>
+                    <a href="@Url.Action("Edit","Notices",new { id = item.NoticeId })" class="btn btn-primary waves-effect waves-light">
+                        <i class="ico ico-right fa fa-edit"></i>Edit
+                    </a>
+                    |
+                    <a href="@Url.Action("Details","Notices",new { id = item.NoticeId })" class="btn btn-info waves-effect waves-light">
+                        <i class="ico ico-right fa fa-info"></i>Details
+                    </a> |
+                    <a href="@Url.Action("Delete","Notices",new { id = item.NoticeId })" class="btn btn-danger waves-effect waves-light">
+                        <i class="mdi mdi-delete-forever"></i>Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="assets/scripts/jquery.min.js"></script>
+
+<!-- Full Screen Plugin -->
+<!-- Data Tables -->
+<script src="assets/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="assets/plugin/datatables/media/js/dataTables.bootstrap.min.js"></script>
+<script src="assets/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+<script src="assets/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js"></script>
+<script>
+    $('#example').DataTable({
+        "columnDefs": [
+
+            { "orderable": false, "targets": 3 },
+
+
+
+        ],
+
+        "pageLength": 30,
+        "bInfo": false,
+        "dom": "Bfrtp",
+
+
+
+
+
+
+
+
+    });
+
+</script>
+<script src="assets/scripts/main.min.js"></script>

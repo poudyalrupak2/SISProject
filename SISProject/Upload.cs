@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 
 namespace SISProject
@@ -99,7 +100,7 @@ namespace SISProject
             public Microsoft.Office.Interop.Word.Document wordDocument { get; set; }
             public bool ExportWordFileToPdf(string workbookPath, string outputPath)
             {
-                Microsoft.Office.Interop.Word.Application appWord = new Microsoft.Office.Interop.Word.Application();
+            Microsoft.Office.Interop.Word.Application appWord = new Microsoft.Office.Interop.Word.Application();
                 wordDocument = appWord.Documents.Open(workbookPath);
                 var exportSuccessful = true;
                 try

@@ -1,8 +1,7 @@
 ﻿@model IEnumerable<SISProject.Models.UplodedFile>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
 }
 
 <h2>Index</h2>
@@ -10,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-bordered table-responsive" id="example">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)

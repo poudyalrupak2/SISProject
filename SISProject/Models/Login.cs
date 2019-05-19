@@ -11,7 +11,9 @@ namespace SISProject.Models
         public string Email { get; set; }
         public string RandomPass { get; set; }
         public byte[] PasswordHash { get; set; }
-    public byte[] PasswordSalt { get; set;}
+        public byte[] PasswordSalt { get; set;}
         public string Role { get; set; }
+        public DateTime? LoginTime { get; set; }
+        public string  LogoutTime { get; set; }
     }
 }

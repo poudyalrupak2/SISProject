@@ -37,16 +37,16 @@ namespace SISProject.Migrations
 
                 );
             context.students.AddOrUpdate(x => x.Id,
-             new student() { Id = 2, FirstName = "raju", LastName = "Standard 2", Address = "Second Standard", Email = "raj@gmail.com" },
-           new student() { Id = 2, FirstName = "raju", LastName = "Standard 2", Address = "Second Standard", Email = "raj2@gmail.com" },
-            new student() { Id = 3, FirstName = "ramu", LastName = "Standard 3", Address = "Third Standard", Email = "raj3@gmail.com" },
-            new student() { Id = 4, FirstName = "raman", LastName = "Standard 3", Address = "Third Standard", Email = "raj4@gmail.com" },
-            new student() { Id = 5, FirstName = "ramjan", LastName = "Raju", Address = "Third Standard", Email = "raj5@gmail.com" },
-            new student() { Id = 6, FirstName = "sham", LastName = "Rajan", Address = "Third Standard", Email = "ram@gmail.com" },
-           new student() { Id = 7, FirstName = "sayam", LastName = "Raan", Address = "Third Standard", Email = "ram1@gmail.com" },
-            new student() { Id = 8, FirstName = "Ganu", LastName = "Raa", Address = "Third Standard", Email = "ram2@gmail.com" },
-           new student() { Id = 9, FirstName = "ramya", LastName = "Raaj", Address = "Third Standard", Email = "ram3@gmail.com" },
-            new student() { Id = 10, FirstName = "rayan", LastName = "Raanu", Address = "Third Standard", Email = "ram4@gmail.com"});
+             new student() { Id = 1, FirstName = "raju", LastName = " rai", Address = "Second Standard", Email = "raj@gmail.com",Status=true },
+           new student() { Id = 2, FirstName = "raju", LastName = " khanal", Address = "Second Standard", Email = "raj2@gmail.com", Status = true },
+            new student() { Id = 3, FirstName = "ramu", LastName = "paji", Address = "Third Standard", Email = "raj3@gmail.com", Status = true },
+            new student() { Id = 4, FirstName = "raman", LastName = "hawa", Address = "Third Standard", Email = "raj4@gmail.com", Status = true },
+            new student() { Id = 5, FirstName = "ramjan", LastName = "Raju", Address = "Third Standard", Email = "raj5@gmail.com", Status = true },
+            new student() { Id = 6, FirstName = "sham", LastName = "Rajan", Address = "Third Standard", Email = "ram@gmail.com", Status = true },
+           new student() { Id = 7, FirstName = "sayam", LastName = "Raan", Address = "Third Standard", Email = "ram1@gmail.com", Status = true },
+            new student() { Id = 8, FirstName = "Ganu", LastName = "Raa", Address = "Third Standard", Email = "ram2@gmail.com", Status = true },
+           new student() { Id = 9, FirstName = "ramya", LastName = "Raaj", Address = "Third Standard", Email = "ram3@gmail.com", Status = true },
+            new student() { Id = 10, FirstName = "rayan", LastName = "Raanu", Address = "Third Standard", Email = "ram4@gmail.com", Status = true });
             context.login.AddOrUpdate(x => x.Id,
            new Login
            {
@@ -115,7 +115,7 @@ namespace SISProject.Migrations
                   },
                   new Login
                   {
-                      Id = 8,
+                      Id = 9,
                       Email = "john123@gmail.com",
                       Role = "teacher",
                       PasswordHash = passwordhash,

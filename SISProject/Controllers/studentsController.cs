@@ -14,6 +14,8 @@ using SISProject.Models;
 namespace SISProject.Controllers
 {
     [SessionCheck]
+    [Authorize(Roles = "SuperAdmin")]
+
     public class studentsController : Controller
     {
         private SisDbContext db = new SisDbContext();
@@ -24,7 +26,7 @@ namespace SISProject.Controllers
             return View(db.students.ToList());
         }
 
-        // GET: students/Details/5
+        // GET: students/Details/5E:\SISProject\SISProject\Controllers\TeachersController.cs
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -42,6 +44,29 @@ namespace SISProject.Controllers
         // GET: students/Create
         public ActionResult Create()
         {
+            List<SelectListItem> listItems = new List<SelectListItem>();
+
+
+            foreach (var item in db.semisters)
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = item.SemisterName,
+                    Value = item.Id.ToString()
+                });
+            }
+            //listItems.Add(new SelectListItem
+            //{
+            //    Text="teacher",
+            //    Value="teacher"
+            //});
+            //listItems.Add(new SelectListItem
+            //{
+            //    Text = "All",
+            //    Value = "All"
+            //});
+
+            ViewBag.SemId = listItems;
             return View();
         }
 
@@ -50,7 +75,7 @@ namespace SISProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Email,Address,Status")] student student)
+        public ActionResult Create( student student)
         {
             if (ModelState.IsValid)
             {

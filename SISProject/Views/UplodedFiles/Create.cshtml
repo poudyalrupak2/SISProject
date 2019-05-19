@@ -2,82 +2,110 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
 }
-    <script src="~/Content/dist/js/tag-input.js"></script>
+<script src="~/Content/dist/js/tag-input.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/assets/styles/style.min.css">
+
+<!-- Material Design Icon -->
+<link rel="stylesheet" href="/assets/fonts/material-design/css/materialdesignicons.css">
+
+<!-- mCustomScrollbar -->
+<link rel="stylesheet" href="/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
+
+<!-- Waves Effect -->
+<link rel="stylesheet" href="/assets/plugin/waves/waves.min.css">
+
+<!-- Sweet Alert -->
+<!-- FlexDatalist -->
+<!-- Popover -->
+<link rel="stylesheet" href="/assets/plugin/popover/jquery.popSelect.min.css">
+
+<!-- Select2 -->
+<link rel="stylesheet" href="/assets/plugin/select2/css/select2.min.css">
+
+
 @using (Html.BeginForm("Create", "UplodedFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>UplodedFile</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })  
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.Description, new { @id = "FullDescription", @class = "form-control", style = "width:300px; height:150px;" }) @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-           </div>  
-        <div class="col-md-12">
-            <div class="col-md-2">
-                <label class="control-label col-md-2" style="width:185px;height:27px;">tags</label>
-            </div>
-            <div id="tags">
-                @Html.TextBoxFor(Model => Model.Tags, new { id = "add_tag" })
-                <div class="tags_dropdown">
-                </div>
-
-            </div>
-        </div>
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.UplodedBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UplodedBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UplodedBy, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Filename, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" name="Files" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>UplodedFile</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-sm-3 " })
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control",id = "inp-type-1" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
     </div>
-}
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-sm-3" })
+        <div class="col-md-9">
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", id = "inp-type-5" }) @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3">Tags</label>
+        <div class="col-md-9">
+            <select class="select2_2 form-control" id="inp-type-4" multiple="multiple" name="obj"></select>
+            </div>
+        </div>
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.UplodedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UplodedBy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UplodedBy, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-<script>
-    new inputTags({
-        asd: true,
-        id: 'add_tag',
-        tags:['Raj'],
-        maxTags: 20,
-        allowDuplicateTags: false,
-        onTagRemove: function (tag) {
-            alert(tag + "Tag is going to be removed");
-        },
-    })
-</script>
-<link rel="stylesheet" href="~/content/dist/stylesheets/inputTag.css">
+            <div class="form-group">
+                <label class="control-label col-sm-3">Files</label>
+                <div class="col-md-9">
+                    <input type="file" name="Files" class="form-control" id="exampleInputFile"/>
+                </div>
+            </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+            <div class="form-group">
+                <div class=" col-md-12">
+                    <center>
+                        <input type="submit" value="Upload" class="btn btn-primary waves-effect waves-light" /><br/><br/>
+                        @Html.ActionLink("Back to List", "Index",null,new { @class= "btn btn-primary waves-effect waves-light"})
+
+                    </center>
+                </div>
+            </div>
+        </div>
+        }
+
+        <link rel="stylesheet" href="~/content/dist/stylesheets/inputTag.css">
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="/assets/scripts/jquery.min.js"></script>
+        <script src="/assets/scripts/modernizr.min.js"></script>
+        <script src="/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="/assets/plugin/nprogress/nprogress.js"></script>
+
+        <script src="/assets/plugin/waves/waves.min.js"></script>
+        <!-- Full Screen Plugin -->
+        <script src="/assets/plugin/fullscreen/jquery.fullscreen-min.js"></script>
+
+        <!-- Flex Datalist -->
+        <script src="/assets/plugin/flexdatalist/jquery.flexdatalist.min.js"></script>
+
+        <!-- Popover -->
+        <!-- Select2 -->
+        <script src="/assets/plugin/select2/js/select2.min.js"></script>
+        <script src="/assets/scripts/form.demo.min.js"></script>
+
+        <script src="/assets/scripts/main.min.js"></script>
+        <!-- Multi Select -->
 
 
-}
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+
+
+        }

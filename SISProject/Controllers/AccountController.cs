@@ -34,12 +34,13 @@ namespace HotelManagemant.Controllers
         }
         Role role = new Role();
         [HttpPost]
-        public ActionResult Login(LoginViewModel l, string ReturnUrl = "")
+        public ActionResult Login(LoginViewModel l, string ReturnUrl)
         {
-            try
-            {
+             
+            ViewBag.ReturnUrl = ReturnUrl;
 
-                if (auth.IsUserExists(l.Email))
+
+            if (auth.IsUserExists(l.Email))
                 {
                     var login = auth.Login(l.Email, l.Password);
 
@@ -52,12 +53,14 @@ namespace HotelManagemant.Controllers
 
                         if (Url.IsLocalUrl(ReturnUrl))
                         {
-                               var objAdmin = context.login.FirstOrDefault(a => (a.Email == l.Email));
+                        var objAdmin = context.login.FirstOrDefault(a => (a.Email == l.Email));
                             
-                                FormsAuthentication.SetAuthCookie(l.Email, false);
+                        FormsAuthentication.SetAuthCookie(l.Email, false);
+                        Session.Add("id", Admin.Id);
+                        Session.Add("userEmail", Admin.Email);
+                        Session.Add("category", Admin.Role);
 
-
-                                return Redirect(ReturnUrl);
+                        return Redirect(ReturnUrl);
                             
                         }
                         else
@@ -75,8 +78,7 @@ namespace HotelManagemant.Controllers
                             }
                             if (roles.Contains("teacher"))
                             {
-                              
-                                return RedirectToAction("Index", "UploadedFiles");
+                            return RedirectToAction("Indexs","UplodedFiles");
                             }
                             if (roles.Contains("student"))
                             {
@@ -102,11 +104,8 @@ namespace HotelManagemant.Controllers
                 ModelState.AddModelError("", "Invalid User");
 
                 return View();
-            }
-            catch (Exception ex)
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.ServiceUnavailable);
-            }
+            
+           
         }
 
         public ActionResult NewPassword()

@@ -13,6 +13,8 @@ using SISProject.Models;
 namespace SISProject.Controllers
 {
     [SessionCheck]
+    [Authorize(Roles = "SuperAdmin")]
+
     public class SemistersController : Controller
     {
         private SisDbContext db = new SisDbContext();
@@ -53,7 +55,9 @@ namespace SISProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.semisters.Add(semister);
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

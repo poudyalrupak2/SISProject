@@ -1,0 +1,65 @@
+﻿@model SISProject.Models.Notice
+@{
+    if (Session["Category"].ToString() == "SuperAdmin")
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    if (Session["Category"].ToString() == "teacher")
+    {
+        Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
+
+    }
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Notice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LongDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LongDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoticeType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoticeType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NoticeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

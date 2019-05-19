@@ -14,6 +14,8 @@ using SISProject.Models;
 namespace SISProject.Controllers
 {
     [SessionCheck]
+    [Authorize(Roles = "SuperAdmin")]
+
     public class TeachersController : Controller
     {
         private SisDbContext db = new SisDbContext();
@@ -50,7 +52,7 @@ namespace SISProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Email,PhoneNo,Address")] Teacher teacher)
+        public ActionResult Create( Teacher teacher)
         {
             if (ModelState.IsValid)
             {

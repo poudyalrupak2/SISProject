@@ -1,4 +1,5 @@
-﻿using SISProject.Data;
+﻿using HotelManagemant.Filters;
+using SISProject.Data;
 using SISProject.Models;
 using SISProject.ViewModel;
 using System;
@@ -16,6 +17,9 @@ using UserBehavior.Recommenders;
 
 namespace SISProject.Controllers
 {
+    [SessionCheck]
+    [Authorize(Roles = "Student")]
+
     public class NotesController : Controller
     {
         private IRecommender recommender;

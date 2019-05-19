@@ -14,15 +14,22 @@ using SISProject.Models;
 namespace SISProject.Controllers
 {
     [SessionCheck]
+    [Authorize(Roles ="teacher")]
     public class UplodedFilesController : Controller
     {
         private SisDbContext db = new SisDbContext();
 
+        [Route("UploadedFiles")]        
         // GET: UplodedFiles
         public ActionResult Index()
         {
             return View(db.ufiles.ToList());
         }
+        public ActionResult Indexs()
+        {
+            return View(db.ufiles.ToList());
+        }
+
 
         // GET: UplodedFiles/Details/5
         public ActionResult Details(int? id)
@@ -50,7 +57,7 @@ namespace SISProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UplodedFile uplodedFile, string[] tagInput, HttpPostedFileBase Files)
+        public ActionResult Create(UplodedFile uplodedFile,string[] obj, HttpPostedFileBase Files)
         {
             if (ModelState.IsValid)
             {
@@ -89,11 +96,13 @@ namespace SISProject.Controllers
                     }
                     var path = Server.MapPath("/Files/" + name + "/" + fileName1 + ext);
                     uplodedFile.FIlesType = ext;
-                    for (int i = 0; i < tagInput.Count(); i++)
+                    string tags = obj[0];
+                    for (int i = 1; i < obj.Count(); i++)
                     {
-                        uplodedFile.Tags = tagInput[i];
+                        tags += "," + obj[i];
                     }
                     Files.SaveAs(path);
+                    uplodedFile.Tags = tags;
                     uplodedFile.Filename = "/Files/" + name + "/" + fileName1 + ext;
 
                     if (ext == ".doc" || ext == ".docx" || ext == ".rtf")
@@ -170,6 +179,10 @@ namespace SISProject.Controllers
                              file1 = "/ppt/" + name + "/";
 
                         }
+                        else
+                        {
+                            return View();
+                        }
 
                         uplodedFile.imagepath=up.ConvertSingleImage(FinalPath,file1, fileName1);
 
@@ -210,7 +223,7 @@ namespace SISProject.Controllers
                     }
                 }
 
-
+                uplodedFile.UplodedBy = Session["userEmail"].ToString();
                 db.ufiles.Add(uplodedFile);
                 db.SaveChanges();
                 int id = uplodedFile.Id;
@@ -224,7 +237,7 @@ namespace SISProject.Controllers
                 System.IO.File.WriteAllText("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt", text);
 
                 //DownLoad(uplodedFile.UpdatedFileName);
-                return View("index", db.ufiles.ToList());
+                return View("indexs", db.ufiles.ToList());
 
                 //void DownLoad(string FName)
                 //{
