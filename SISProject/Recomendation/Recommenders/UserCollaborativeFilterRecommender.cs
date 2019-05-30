@@ -23,7 +23,7 @@ namespace UserBehavior.Recommenders
         private int neighborCount;
         private int latentUserFeatureCount;
         public UserCollaborativeFilterRecommender(IComparer userComparer, IRater implicitRater, int numberOfNeighbors)
-            : this(userComparer, implicitRater, numberOfNeighbors, 10)
+            : this(userComparer, implicitRater, numberOfNeighbors, 100)
         {
         }
 

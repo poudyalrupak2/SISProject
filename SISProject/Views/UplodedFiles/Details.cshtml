@@ -5,47 +5,67 @@
     Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
 }
 
-<h2>Details</h2>
+<style>
+    table {
+        border-collapse: collapse;
+        witdh: 100%;
+        border: 1px solid #tdd;
+    }
 
-<div>
-    <h4>UplodedFile</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    th, td {
+        text-align: left;
+        patding: 8px;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FIlesType)
-        </dt>
+<div class="panel-group">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Details</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.FIlesType)
-        </dd>
+        <div class="panel-body">
+            <table class="table table-responsive table-bordered">
+                <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Name)
+                </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Tags)
-        </dt>
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+</tr>
+                <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.FIlesType)
+                </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.Tags)
-        </dd>
+                <td>
+                    @Html.DisplayFor(model => model.FIlesType)
+                </td>
+</tr>
+                <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Tags)
+                </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UplodedBy)
-        </dt>
+                <td>
+                    @Html.DisplayFor(model => model.Tags)
+                </td>
+                    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.UplodedBy)
-        </dd>
+               
+                </table>
+            <p>
+                <center>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-primary" })
+                </center>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            </p>
+            </div>
+        </div>
+    </div>
+

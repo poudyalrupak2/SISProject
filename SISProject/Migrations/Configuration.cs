@@ -24,29 +24,34 @@ namespace SISProject.Migrations
                 string password = "nepalnepal1";
                 passwordhash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
                 passwordsalt = hmac.Key;
-
-
             }
+            context.semisters.AddOrUpdate(x => x.Id,
+                new Semister() {SemisterName="First Semester" },
+                new Semister() { SemisterName = "Second Semester" },
+                                new Semister() { SemisterName = "Third Semester" },
+                new Semister() { SemisterName = "Fourth Semester" },
+
+                                new Semister() { SemisterName = "Fifth Semester" },
+                new Semister() { SemisterName = "Sixth Semester" },
+                new Semister() { SemisterName = "Seventh Semester" },
+                new Semister() { SemisterName = "Eight Semester" }
+
+               );
             context.teachers.AddOrUpdate(x => x.Id,
-               new Teacher() { Id=1,Name="Rajesh",Address="ilam",Email="john123@gmail.com"},
-              new Teacher() { Id = 2, Name = "Ram", Address = "Jhapa", Email = "john23@gmail.com" }
-
-
-
-
-
+               new Teacher() { Id=1,Name="Rajesh",Address="ilam",Email="john123@gmail.com",status = true },
+              new Teacher() { Id = 2, Name = "Ram", Address = "Jhapa", Email = "john23@gmail.com",status = true }
                 );
             context.students.AddOrUpdate(x => x.Id,
-             new student() { Id = 1, FirstName = "raju", LastName = " rai", Address = "Second Standard", Email = "raj@gmail.com",Status=true },
-           new student() { Id = 2, FirstName = "raju", LastName = " khanal", Address = "Second Standard", Email = "raj2@gmail.com", Status = true },
-            new student() { Id = 3, FirstName = "ramu", LastName = "paji", Address = "Third Standard", Email = "raj3@gmail.com", Status = true },
-            new student() { Id = 4, FirstName = "raman", LastName = "hawa", Address = "Third Standard", Email = "raj4@gmail.com", Status = true },
-            new student() { Id = 5, FirstName = "ramjan", LastName = "Raju", Address = "Third Standard", Email = "raj5@gmail.com", Status = true },
-            new student() { Id = 6, FirstName = "sham", LastName = "Rajan", Address = "Third Standard", Email = "ram@gmail.com", Status = true },
-           new student() { Id = 7, FirstName = "sayam", LastName = "Raan", Address = "Third Standard", Email = "ram1@gmail.com", Status = true },
-            new student() { Id = 8, FirstName = "Ganu", LastName = "Raa", Address = "Third Standard", Email = "ram2@gmail.com", Status = true },
-           new student() { Id = 9, FirstName = "ramya", LastName = "Raaj", Address = "Third Standard", Email = "ram3@gmail.com", Status = true },
-            new student() { Id = 10, FirstName = "rayan", LastName = "Raanu", Address = "Third Standard", Email = "ram4@gmail.com", Status = true });
+             new student() { Id = 1, FirstName = "raju", LastName = " rai", Address = "Ilam", Email = "raj@gmail.com",Status=true,SemisterId=1 },
+           new student() { Id = 2, FirstName = "raju", LastName = " khanal", Address = "Ilam", Email = "raj2@gmail.com", Status = true, SemisterId = 2 },
+            new student() { Id = 3, FirstName = "ramu", LastName = "paji", Address = "Ilam", Email = "raj3@gmail.com", Status = true, SemisterId = 3 },
+            new student() { Id = 4, FirstName = "raman", LastName = "hawa", Address = "Ilam", Email = "raj4@gmail.com", Status = true, SemisterId = 4 },
+            new student() { Id = 5, FirstName = "ramjan", LastName = "Raju", Address = "Ilam", Email = "raj5@gmail.com", Status = true, SemisterId = 5 },
+            new student() { Id = 6, FirstName = "sham", LastName = "Rajan", Address = "Ilam", Email = "ram@gmail.com", Status = true, SemisterId = 6 },
+           new student() { Id = 7, FirstName = "sayam", LastName = "Raan", Address = "Ilam", Email = "ram1@gmail.com", Status = true, SemisterId = 7 },
+            new student() { Id = 8, FirstName = "Ganu", LastName = "Raa", Address = "Ilam", Email = "ram2@gmail.com", Status = true, SemisterId = 8 },
+           new student() { Id = 9, FirstName = "ramya", LastName = "Raaj", Address = "Ilam", Email = "ram3@gmail.com", Status = true, SemisterId = 1 },
+            new student() { Id = 10, FirstName = "rayan", LastName = "Raanu", Address = "Ilam", Email = "ram4@gmail.com", Status = true, SemisterId = 2 });
             context.login.AddOrUpdate(x => x.Id,
            new Login
            {

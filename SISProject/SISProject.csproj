@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\ClientNotesController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\NoticesController.cs" />
@@ -191,57 +192,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903311021471_init3.cs" />
-    <Compile Include="Migrations\201903311021471_init3.Designer.cs">
-      <DependentUpon>201903311021471_init3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903311536125_post-removed.cs" />
-    <Compile Include="Migrations\201903311536125_post-removed.Designer.cs">
-      <DependentUpon>201903311536125_post-removed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904112351385_database-updated.cs" />
-    <Compile Include="Migrations\201904112351385_database-updated.Designer.cs">
-      <DependentUpon>201904112351385_database-updated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904160939054_upload-fileupdated.cs" />
-    <Compile Include="Migrations\201904160939054_upload-fileupdated.Designer.cs">
-      <DependentUpon>201904160939054_upload-fileupdated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905030114470_files-upload-updated.cs" />
-    <Compile Include="Migrations\201905030114470_files-upload-updated.Designer.cs">
-      <DependentUpon>201905030114470_files-upload-updated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905030157407_files-upload-updated1.cs" />
-    <Compile Include="Migrations\201905030157407_files-upload-updated1.Designer.cs">
-      <DependentUpon>201905030157407_files-upload-updated1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905030406345_files-upload-updated2.cs" />
-    <Compile Include="Migrations\201905030406345_files-upload-updated2.Designer.cs">
-      <DependentUpon>201905030406345_files-upload-updated2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905030735073_tag-updated.cs" />
-    <Compile Include="Migrations\201905030735073_tag-updated.Designer.cs">
-      <DependentUpon>201905030735073_tag-updated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905130243522_mig-data-update.cs" />
-    <Compile Include="Migrations\201905130243522_mig-data-update.Designer.cs">
-      <DependentUpon>201905130243522_mig-data-update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905130421084_notice-title-updated.cs" />
-    <Compile Include="Migrations\201905130421084_notice-title-updated.Designer.cs">
-      <DependentUpon>201905130421084_notice-title-updated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905170011267_Notice-changed.cs" />
-    <Compile Include="Migrations\201905170011267_Notice-changed.Designer.cs">
-      <DependentUpon>201905170011267_Notice-changed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905180657017_gender-added.cs" />
-    <Compile Include="Migrations\201905180657017_gender-added.Designer.cs">
-      <DependentUpon>201905180657017_gender-added.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905191553159_allupdated.cs" />
-    <Compile Include="Migrations\201905191553159_allupdated.Designer.cs">
-      <DependentUpon>201905191553159_allupdated.cs</DependentUpon>
+    <Compile Include="Migrations\201905300628045_init.cs" />
+    <Compile Include="Migrations\201905300628045_init.Designer.cs">
+      <DependentUpon>201905300628045_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -306,6 +259,7 @@
     <Compile Include="Data\SisDbContext.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Upload.cs" />
+    <Compile Include="ViewModel\Counts.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\NRViewModel.cs" />
     <Compile Include="ViewModel\PasswordConform.cs" />
@@ -1136,6 +1090,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dist\js\pdf.min.js" />
     <Content Include="Content\dist\js\tag-input.js" />
     <Content Include="Content\dist\stylesheets\inputTag.css" />
     <Content Include="Content\gulpfile.js" />
@@ -1410,6 +1365,9 @@
     <Content Include="Views\UplodedFiles\Indexs.cshtml" />
     <Content Include="Views\Notices\GetNotice.cshtml" />
     <Content Include="Views\ClientNotes\Index.cshtml" />
+    <Content Include="Views\ClientNotes\TeacherIndex.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1429,44 +1387,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903311021471_init3.resx">
-      <DependentUpon>201903311021471_init3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903311536125_post-removed.resx">
-      <DependentUpon>201903311536125_post-removed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904112351385_database-updated.resx">
-      <DependentUpon>201904112351385_database-updated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904160939054_upload-fileupdated.resx">
-      <DependentUpon>201904160939054_upload-fileupdated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905030114470_files-upload-updated.resx">
-      <DependentUpon>201905030114470_files-upload-updated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905030157407_files-upload-updated1.resx">
-      <DependentUpon>201905030157407_files-upload-updated1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905030406345_files-upload-updated2.resx">
-      <DependentUpon>201905030406345_files-upload-updated2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905030735073_tag-updated.resx">
-      <DependentUpon>201905030735073_tag-updated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905130243522_mig-data-update.resx">
-      <DependentUpon>201905130243522_mig-data-update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905130421084_notice-title-updated.resx">
-      <DependentUpon>201905130421084_notice-title-updated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905170011267_Notice-changed.resx">
-      <DependentUpon>201905170011267_Notice-changed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905180657017_gender-added.resx">
-      <DependentUpon>201905180657017_gender-added.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905191553159_allupdated.resx">
-      <DependentUpon>201905191553159_allupdated.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905300628045_init.resx">
+      <DependentUpon>201905300628045_init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Recomendation\obj\Debug\UserBehavior.Properties.Resources.resources" />
     <EmbeddedResource Include="Recomendation\Properties\Resources.resx" />

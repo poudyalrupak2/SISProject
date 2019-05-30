@@ -14,10 +14,14 @@ namespace SISProject.Models
         public string LastName { get; set; }
         public int RollNo { get; set; }
         public Semister Semister { get; set; }
+        public int SemisterId { get; set; }
+        public string Faculty { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
+        public DateTime? EnrollDate { get; set; }
         public string StudentRole { get; set; }
+        public string NotificationSeenDate { get; set; }
         public bool Status { get; set; }
         public string photopath { get; set; }
         [NotMapped]

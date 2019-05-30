@@ -27,7 +27,9 @@ namespace SISProject.Controllers
         }
         public ActionResult Indexs()
         {
-            return View(db.ufiles.ToList());
+            string name = Session["userEmail"].ToString();
+
+            return View(db.ufiles.Where(m=>m.UplodedBy==name).ToList());
         }
 
 
@@ -66,6 +68,7 @@ namespace SISProject.Controllers
                     string FinalPath = null;
                     var fileName = Path.GetFileName(Files.FileName);
                     var fileName1 = Path.GetFileNameWithoutExtension(Files.FileName);
+                    fileName1= fileName1.Replace(" ", "_");
 
                     // extract only the fielname
                     var ext = Path.GetExtension(fileName.ToLower());            //extract only the extension of filename and then convert it into lower case.
@@ -136,8 +139,8 @@ namespace SISProject.Controllers
                             uplodedFile.UpdatedFileName = "/word/" + name + "/" + fileName1 + ".pdf";
                             file1 = "/word/" + name + "/";
                         }
-                        string imagename = up.ConvertSingleImage(FinalPath, file1,fileName1);
-                        uplodedFile.imagepath = imagename;
+                        // string imagename = up.ConvertSingleImage(FinalPath, file1,fileName1);
+                        uplodedFile.imagepath = "/pwpImg/word.png";
 
                     }
 
@@ -184,7 +187,7 @@ namespace SISProject.Controllers
                             return View();
                         }
 
-                        uplodedFile.imagepath=up.ConvertSingleImage(FinalPath,file1, fileName1);
+                        uplodedFile.imagepath= "/pwpImg/ppt.png";
 
                     }
 
@@ -213,7 +216,7 @@ namespace SISProject.Controllers
                         Upload up = new Upload();
                         uplodedFile.UpdatedFileName = FinalPath;
                         string file1 = "/pdf/" + name + "/";
-                        uplodedFile.imagepath=up.ConvertSingleImage(Server.MapPath(FinalPath),file1, fileName1);           //Convert the pdf file into "jpg" file, the code is written in FileUploaderModel.cs
+                        uplodedFile.imagepath = uplodedFile.imagepath = "/pwpImg/pdf.jpg";
 
                     }
                     else
@@ -224,6 +227,7 @@ namespace SISProject.Controllers
                 }
 
                 uplodedFile.UplodedBy = Session["userEmail"].ToString();
+                uplodedFile.UplodedDate = DateTime.Now.ToShortDateString();
                 db.ufiles.Add(uplodedFile);
                 db.SaveChanges();
                 int id = uplodedFile.Id;

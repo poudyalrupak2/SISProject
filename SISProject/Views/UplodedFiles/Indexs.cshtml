@@ -20,15 +20,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FIlesType)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Tags)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UplodedBy)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -39,15 +35,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FIlesType)
-                </td>
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.Tags)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UplodedBy)
-                </td>
+             
                 <td>
                     <a href="@Url.Action("Edit","UplodedFiles",new { id = item.Id })" class="btn btn-primary waves-effect waves-light">
                         <i class="ico ico-right fa fa-edit"></i>Edit

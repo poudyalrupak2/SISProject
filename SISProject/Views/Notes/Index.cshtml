@@ -30,102 +30,81 @@
 <script src="/BookDemo/js/bootstrap.min.js"></script>
 <!-- JS | jquery plugin collection for this theme -->
 <script src="/BookDemo/js/jquery-plugin-collection.js"></script>
+<style>
+    section > .container, section > .container-fluid {
+        padding-top: 0px;
+        padding-bottom: 70px;
+    }
+</style>
+@if (ViewBag.message == null)
+{
 <section>
     <div class="container">
         <div class="row">
             <div class="col-md-12 blog-pull-right">
                 <div class="row">
-                    <h1>Recomended articles</h1>
+                    <h1>Recomended For You</h1>
                     @foreach (var item in Model.RecomendedArticles)
                     {
                         <div class="col-sm-6 col-md-4">
                             <div class="service-block bg-white">
                                 <div class="thumb">
-                                    @if (item.imagepath != null)
-                                    {
-                                        <img alt="featured project" src="@item.imagepath" class="img-fullwidth" height="265" width="195">
-                                    }
-                                    else
-                                    {
-                                        <img alt="featured project" src="http://placehold.it/265x195" class="img-fullwidth">
-
-                                    }
+                                    <img alt="featured project" src="@item.imagepath" class="img-fullwidth">
                                 </div>
                                 <div class="content text-left flip p-25 pt-0">
                                     <h4 class="line-bottom mb-10">@item.Name </h4>
-                                    <p>@item.Description</p>
-                                    <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Details","Notes",new { id = item.Id })">view details</a>
+                                    <p style="white-space: nowrap; width: 100%; overflow: hidden;text-overflow:ellipsis;">@item.Description</p>
+                                    <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Details", "Notes", new { id = item.Id })">view details</a>
+                                    <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Download", "Notes", new { Path = item.Filename, id = item.Id })">
+                                        Download</a>
                                 </div>
                             </div>
                         </div>
                     }
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <nav>
-                    <ul class="pagination theme-colored xs-pull-center m-0">
-                        <li> <a href="#" aria-label="Previous"> <span aria-hidden="true">«</span> </a> </li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">...</a></li>
-                        <li> <a href="#" aria-label="Next"> <span aria-hidden="true">»</span> </a> </li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>
 </section>
-
+}
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 blog-pull-right">
+            <div class="col-md-11">
                 <div class="row">
-                    @foreach (var item in Model.uplodedFiles)
+                    @if (ViewBag.message == null)
                     {
+                    <h1>Recently  Uploded Article</h1>
+                    }
+                    @if (ViewBag.messagea == null)
+                    {
+                        foreach (var item in Model.uplodedFiles)
+                        {
                         <div class="col-sm-6 col-md-4">
                             <div class="service-block bg-white">
                                 <div class="thumb">
-                                    @if (item.imagepath != null)
-                                    {
-                                        <img alt="featured project" src="@item.imagepath" class="img-fullwidth" height="265" width="195">
-                                    }
-                                    else
-                                    {
-                                        <img alt="featured project" src="http://placehold.it/265x195" class="img-fullwidth">
 
-                                    }
+                                    <img alt="featured project" src="@item.imagepath" class="img-fullwidth">
+
+
                                 </div>
                                 <div class="content text-left flip p-25 pt-0">
                                     <h4 class="line-bottom mb-10">@item.Name </h4>
-                                    <p>@item.Description</p>
-                                    <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="page-courses-accounting-technologies.html">view details</a>
+                                    <p style="white-space: nowrap; width: 100%; overflow: hidden;text-overflow:ellipsis;">@item.Description</p>
+                                    <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Details", "Notes", new { id = item.Id })">view details</a>
+                                    <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Download", "Notes", new { Path = item.Filename, id = item.Id })">
+                                        Download
+                                    </a>
                                 </div>
                             </div>
                         </div>
+                        }
+                    }
+                    else
+                    {
+                        <h1>@ViewBag.messagea</h1>
                     }
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <nav>
-                    <ul class="pagination theme-colored xs-pull-center m-0">
-                        <li> <a href="#" aria-label="Previous"> <span aria-hidden="true">«</span> </a> </li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">...</a></li>
-                        <li> <a href="#" aria-label="Next"> <span aria-hidden="true">»</span> </a> </li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>

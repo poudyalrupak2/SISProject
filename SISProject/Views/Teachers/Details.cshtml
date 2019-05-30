@@ -5,47 +5,89 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Teacher</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+<style>
+    table {
+        border-collapse: collapse;
+        witdh: 100%;
+        border: 1px solid #tdd;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+    th, td {
+        text-align: left;
+        patding: 8px;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNo)
-        </dt>
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
 
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNo)
-        </dd>
+<div class="panel-group">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Details</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+        <div class="panel-body">
+            <table class="table table-responsive table-bordered">
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </td>
 
-    </dl>
+                    <td>
+                        @Html.DisplayFor(model => model.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.PhoneNo)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.PhoneNo)
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.Address)
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.HireDate)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.HireDate)
+                    </td>
+
+                </tr>
+            </table>
+            <p>
+                <center>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                </center>
+
+            </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</div>
+</div>

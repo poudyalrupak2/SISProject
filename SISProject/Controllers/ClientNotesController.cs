@@ -1,4 +1,5 @@
-﻿using SISProject.Data;
+﻿using HotelManagemant.Filters;
+using SISProject.Data;
 using SISProject.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,8 @@ namespace SISProject.Controllers
     public class ClientNotesController : Controller
     {
         private SisDbContext db = new SisDbContext();
-
+        [SessionCheck]
+        [Authorize(Roles = "student")]
         public ActionResult Index()
         {
             List<Notice> notices = new List<Notice>();
@@ -22,7 +24,20 @@ namespace SISProject.Controllers
                 int semister = db.students.Where(m => m.Email == email).Select(m => m.Semister.Id).FirstOrDefault();
                 notices = db.notices.Where(m => m.NoticeType == "All").Union(db.notices.Where(m => m.NoticeType ==semister.ToString())).ToList();
             }
-            return View(db.notices.ToList());
+            return View(notices);
+
+        }
+        [Authorize(Roles = "teacher")]
+        public ActionResult TeacherIndex()
+        {
+            List<Notice> notices = new List<Notice>();
+            string category = Session["category"].ToString();
+            if (category == "teacher")
+            {
+                string email = Session["userEmail"].ToString();
+                notices = db.notices.Where(m => m.NoticeType == "All").Union(db.notices.Where(m => m.NoticeType =="teacher" )).ToList();
+            }
+            return View(notices);
 
         }
         public ActionResult DownLoad(string path)

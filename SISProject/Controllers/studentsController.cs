@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -23,7 +24,7 @@ namespace SISProject.Controllers
         // GET: students
         public ActionResult Index()
         {
-            return View(db.students.ToList());
+            return View(db.students.Where(m=>m.Status==true).ToList());
         }
 
         // GET: students/Details/5E:\SISProject\SISProject\Controllers\TeachersController.cs
@@ -75,10 +76,75 @@ namespace SISProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( student student)
+        public ActionResult Create( student student,HttpPostedFileBase photo)
         {
             if (ModelState.IsValid)
             {
+                List<SelectListItem> listItems = new List<SelectListItem>();
+
+
+                foreach (var item in db.semisters)
+                {
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = item.SemisterName,
+                        Value = item.Id.ToString()
+                    });
+                }
+                //listItems.Add(new SelectListItem
+                //{
+                //    Text="teacher",
+                //    Value="teacher"
+                //});
+                //listItems.Add(new SelectListItem
+                //{
+                //    Text = "All",
+                //    Value = "All"
+                //});
+
+                ViewBag.SemId = listItems;
+
+
+                if (photo != null && photo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(photo.FileName);
+                    var fileName1 = Path.GetFileNameWithoutExtension(photo.FileName);
+                    fileName1 = fileName1.Replace(" ", "_");
+
+                    // extract only the fielname
+                    var ext = Path.GetExtension(fileName.ToLower());            //extract only the extension of filename and then convert it into lower case.
+
+
+                    int name;
+                    try
+                    {
+                        name = db.students.OrderByDescending(m => m.Id).FirstOrDefault().Id;
+                    }
+                    catch
+                    {
+                        name = 1;
+                    }
+                    string firstpath1 = "/StuPhoto/";
+                    string secondpath = "/StuPhoto/" + name + "/";
+                    bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
+                    bool exists2 = System.IO.Directory.Exists(Server.MapPath(secondpath));
+                    if (!exists1)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
+
+                    }
+                    if (!exists2)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(secondpath));
+
+                    }
+                    var path = Server.MapPath("/StuPhoto/" + name + "/" + fileName1 + ext);
+
+                    photo.SaveAs(path);
+                    student.photopath = "/StuPhoto/" + name + "/" + fileName1 + ext;
+
+
+                }
                 int data = db.login.Where(t => t.Email == student.Email).Count();
                 if (data > 0)
                 {
@@ -106,6 +172,7 @@ namespace SISProject.Controllers
                             Email = student.Email,
                             Role = "Student",
                             RandomPass = password,
+                            LoginTime = DateTime.Now
 
 
                         });
@@ -128,13 +195,14 @@ namespace SISProject.Controllers
                 var text = System.IO.File.ReadAllText("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt");
                 List<string> lines = System.IO.File.ReadAllLines("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt").ToList();
                 int index = text.IndexOf("# User actions");
-                text = text.Insert(index,id+" "+student.FirstName  + Environment.NewLine);
+                text = text.Insert(index, id + "," + student.FirstName + Environment.NewLine);
                 System.IO.File.WriteAllText("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt", text);
 
                 return RedirectToAction("Index");
             }
-
             return View(student);
+            
+
         }
 
         // GET: students/Edit/5
@@ -145,6 +213,20 @@ namespace SISProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             student student = db.students.Find(id);
+            List<SelectListItem> listItems = new List<SelectListItem>();
+
+
+            foreach (var item in db.semisters)
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = item.SemisterName,
+                    Value = item.Id.ToString()
+                });
+            }
+
+            ViewBag.SemId = listItems;
+
             if (student == null)
             {
                 return HttpNotFound();
@@ -157,15 +239,83 @@ namespace SISProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Email,Address,Status")] student student)
+        public ActionResult Edit( student student, HttpPostedFileBase photo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
+                if (photo != null && photo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(photo.FileName);
+                    var fileName1 = Path.GetFileNameWithoutExtension(photo.FileName);
+                    fileName1 = fileName1.Replace(" ", "_");
+
+                    // extract only the fielname
+                    var ext = Path.GetExtension(fileName.ToLower());            //extract only the extension of filename and then convert it into lower case.
+
+
+                    int name=student.Id;
+                    
+                    string firstpath1 = "/StuPhoto/";
+                    string secondpath = "/StuPhoto/" + name + "/";
+                    bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
+                    bool exists2 = System.IO.Directory.Exists(Server.MapPath(secondpath));
+                    if (!exists1)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
+
+                    }
+                    if (!exists2)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(secondpath));
+
+                    }
+                    var path = Server.MapPath("/StuPhoto/" + name + "/" + fileName1 + ext);
+
+                    photo.SaveAs(path);
+                    student.photopath = "/StuPhoto/" + name + "/" + fileName1 + ext;
+
+
+                }
+                else
+                {
+                    student.photopath = db.students.Where(m => m.Id == student.Id).FirstOrDefault().photopath;
+                }
+                student std = db.students.Where(m => m.Id == student.Id).FirstOrDefault();
+                std.FirstName = student.FirstName;
+                std.MiddleName = student.LastName;
+                std.LastName = student.LastName;
+                std.photopath = student.photopath;
+                std.RollNo = student.RollNo;
+                std.Gender = student.Gender;
+                std.SemisterId = student.SemisterId;
+                std.Status = true;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(student);
+        }
+        public ActionResult status(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            student student = db.students.Find(id);
+            if(student.Status==true)
+            {
+                student.Status = false;
+            }
+            else
+            {
+                student.Status = true;
+            }
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: students/Delete/5

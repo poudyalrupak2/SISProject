@@ -44,7 +44,7 @@ namespace SISProject
             }
             catch (Exception ex)
             {
-                return "error";
+                return (ex.Message);
             }
         }
 

@@ -6,6 +6,8 @@ using SISProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -73,7 +75,7 @@ namespace HotelManagemant.Controllers
                             string[] roles = role.GetRolesForUser(objAdmin.Email);
                             if (roles.Contains("SuperAdmin"))
                             {
-                                return RedirectToAction("Index", "Teachers");
+                                return RedirectToAction("Index", "Dashboard");
 
                             }
                             if (roles.Contains("teacher"))
@@ -134,10 +136,46 @@ namespace HotelManagemant.Controllers
             }
             return PartialView();
         }
+        public ActionResult ForgotPassword()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(string email)
+        {
+            var Admin = context.login.FirstOrDefault(a => (a.Email == email));
+            if(Admin!=null)
+            {
+                Random generator = new Random();
+                String password = generator.Next(0, 999999).ToString("D6");
+                var message = new MailMessage();
+                message.To.Add(new MailAddress(Admin.Email));
+                message.Subject = "Forget password";
+                message.Body = "Use this Password to login:" + password;
+                using (var smtp = new SmtpClient())
+                {
+                    try
+                    {
+
+                        smtp.Send(message);
+                        Admin.RandomPass = password;
+                        context.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+
+                        return new HttpStatusCodeResult(HttpStatusCode.RequestTimeout);
+                    }
+                }
+
+                return RedirectToAction("Login");
+            }
+            ModelState.AddModelError("", "this email doesnot exist");
+            return PartialView();
+        }
         public ActionResult Logout()
         {
-
-            
+ 
                 FormsAuthentication.SignOut();
 
                 Session.Abandon();

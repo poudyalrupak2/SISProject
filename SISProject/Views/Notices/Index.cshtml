@@ -42,9 +42,7 @@
                 @Html.DisplayNameFor(model => model.ShortDescription)
             </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.NoticeType)
-            </th>
+            
            
             <th></th>
         </tr>
@@ -59,10 +57,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ShortDescription)
                 </td>
-               
-                <td>
-                    @Html.DisplayFor(modelItem => item.NoticeType)
-                </td>
+            
                
                 <td>
                     <a href="@Url.Action("Edit","Notices",new { id = item.NoticeId })" class="btn btn-primary waves-effect waves-light">

@@ -11,55 +11,65 @@
     }
 }
 
-<h2>Details</h2>
+<style>
+    table {
+        border-collapse: collapse;
+        witdh: 100%;
+        border: 1px solid #tdd;
+    }
 
-<div>
-    <h4>Notice</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    th, td {
+        text-align: left;
+        patding: 8px;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+<div class="panel-group">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Details</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ShortDescription)
-        </dt>
+        <div class="panel-body">
+            <table class="table table-responsive table-bordered">
 
-        <dd>
-            @Html.DisplayFor(model => model.ShortDescription)
-        </dd>
+                <tr class="dl-horizontal">
+                    <td>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LongDescription)
-        </dt>
+                    <td>
+                        @Html.DisplayFor(model => model.Title)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.ShortDescription)
+                    </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.LongDescription)
-        </dd>
+                    <td>
+                        @Html.DisplayFor(model => model.ShortDescription)
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.LongDescription)
+                    </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NoticeType)
-        </dt>
+                    <td>
+                        @Html.DisplayFor(model => model.LongDescription)
+                    </td>
+              
 
-        <dd>
-            @Html.DisplayFor(model => model.NoticeType)
-        </dd>
+</table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-
-    </dl>
+        </div>
+        <p>
+            <center>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.NoticeId }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-primary" })
+            </center>
+        </p>
+        </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.NoticeId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -42,9 +42,11 @@
                         <a class="waves-effect" href="@Url.Action("Indexs","UplodedFiles")"><i class="menu-icon mdi mdi-briefcase-upload"></i><span>Upload Notes</span></a>
                     </li>
                     <li>
-                        <a class="waves-effect" href="@Url.Action("Index","Notices")"><i class="menu-icon mdi mdi-note-multiple"></i><span>Notices</span></a>
+                        <a class="waves-effect" href="@Url.Action("Index","Notices")"><i class="menu-icon mdi mdi-note-multiple"></i><span>Upload Notices</span></a>
                     </li>
-
+                    <li>
+                        <a class="waves-effect" href="@Url.Action("TeacherIndex","ClientNotes")"><i class="menu-icon mdi mdi-note-multiple"></i><span>Notices</span></a>
+                    </li>
                 </ul>
                 <!-- /.menu js__accordion -->
             </div>
@@ -89,10 +91,9 @@
             <a href="#" class="ico-item fa fa-envelope notice-alarm js__toggle_open" data-target="#message-popup"></a>
             <a href="#" class="ico-item pulse"><span class="ico-item fa fa-bell notice-alarm js__toggle_open" data-target="#notification-popup"></span></a>
             <div class="ico-item">
-                <img src="http://placehold.it/80x80" alt="" class="ico-img">
+                <img src="\StuPhoto\noimg.png" alt="" class="ico-img">
                 <ul class="sub-ico-item">
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">Blog</a></li>
+                   
                     <li><a href="@Url.Action("Logout","Account")">Log Out</a></li>
                 </ul>
                 <!-- /.sub-ico-item -->

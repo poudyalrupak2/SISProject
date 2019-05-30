@@ -1,0 +1,16 @@
+﻿@model IEnumerable<SISProject.Models.Notice>
+
+@{
+    ViewBag.Title = "TeacherIndex";
+    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
+}
+
+@foreach (var item in Model)
+{
+    <b>
+        <a href="@Url.Action("Download", "ClientNotes",new { Path = item.path })">
+            @item.ShortDescription
+        </a>
+    </b><br />
+}
+

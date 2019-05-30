@@ -27,7 +27,8 @@ namespace SISProject.Controllers
         // GET: Notices
         public ActionResult Index()
         {
-            return View(db.notices.ToList());
+            string name = Session["userEmail"].ToString();
+            return View(db.notices.Where(m=>m.CreatedBy==name).ToList());
         }
 
         // GET: Notices/Details/5
@@ -94,7 +95,7 @@ namespace SISProject.Controllers
             return View();
         }
 
-        public string texttopdf(string name,string rol,string nig, string pat)
+        public string texttopdf(string name,string rol,string nig, string pat,int ids=0)
         {
 
 
@@ -107,15 +108,31 @@ namespace SISProject.Controllers
             iTextSharp.text.Paragraph text;
             iTextSharp.text.Paragraph text2;
             iTextSharp.text.Paragraph title2;
-            int id = db.notices.OrderByDescending(m => m.NoticeId).FirstOrDefault().NoticeId;
             int fileno;
-            if (id == 0)
+
+            if (ids == 0)
             {
-                fileno = 1;
+                int id;
+                try
+                {
+                    id = db.notices.OrderByDescending(m => m.NoticeId).FirstOrDefault().NoticeId;
+                }
+                catch (Exception ex)
+                {
+                    id = 0;
+                }
+                if (id == 0)
+                {
+                    fileno = 1;
+                }
+                else
+                {
+                    fileno = id + 1;
+                }
             }
             else
             {
-                fileno = id + 1;
+                fileno = ids;
             }
 
             //Create a New instance of PDFWriter Class for Output File
@@ -191,37 +208,50 @@ namespace SISProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                int id = db.notices.OrderByDescending(m => m.NoticeId).FirstOrDefault().NoticeId;
-                int fileno;
-                if (id == 0)
+                string path1 = "";
+                if (img != null && img.ContentLength > 0)
                 {
-                    fileno = 1;
-                }
-                else
-                {
-                    fileno = id + 1;
-                }
+                    int id;
+                    try
+                    {
+                        id = db.notices.OrderByDescending(m => m.NoticeId).FirstOrDefault().NoticeId;
+                    }
+                    catch (Exception e)
+                    {
+                        id = 0;
+                    }
+                    int fileno;
+                    if (id == 0)
+                    {
+                        fileno = 1;
+                    }
+                    else
+                    {
+                        fileno = id + 1;
+                    }
 
-                //Create a New instance of PDFWriter Class for Output File
-                string firstpath1 = "/Path/";
-                bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
-                string firstpath2 = "/Path/" + fileno + "/";
-                bool exists2 = System.IO.Directory.Exists(Server.MapPath(firstpath2));
-                if (!exists1)
-                {
-                    System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
+                    //Create a New instance of PDFWriter Class for Output File
+                    string firstpath1 = "/Path/";
+                    bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
+                    string firstpath2 = "/Path/" + fileno + "/";
+                    bool exists2 = System.IO.Directory.Exists(Server.MapPath(firstpath2));
+                    if (!exists1)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
 
+                    }
+                    if (!exists2)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(firstpath2));
+
+                    }
+
+                     path1 = "/Path/" + fileno + "/" + img.FileName;
+                    img.SaveAs(Server.MapPath(path1));
+                    notice.Image = path1;
+                    
                 }
-                if (!exists2)
-                {
-                    System.IO.Directory.CreateDirectory(Server.MapPath(firstpath2));
-
-                }
-
-                string path1 = "/Path/" + fileno + "/" + img.FileName;
-                img.SaveAs(Server.MapPath(path1));
-          
-                string a = texttopdf(notice.Title,notice.ShortDescription, notice.LongDescription, path1);
+                string a = texttopdf(notice.Title, notice.ShortDescription, notice.LongDescription, path1);
                 notice.path = a;
                 notice.Createdate = DateTime.Now;
 
@@ -242,11 +272,54 @@ namespace SISProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notice notice = db.notices.Find(id);
+            Notice notice = db.notices.Where(m=>m.NoticeId==id).FirstOrDefault();
             if (notice == null)
             {
                 return HttpNotFound();
             }
+            List<SelectListItem> listItems = new List<SelectListItem>();
+
+            if (Session["category"].ToString() == "SuperAdmin")
+            {
+
+                foreach (var item in db.semisters)
+                {
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = item.SemisterName,
+                        Value = item.Id.ToString()
+                    });
+                }
+                listItems.Add(new SelectListItem
+                {
+                    Text = "teacher",
+                    Value = "teacher"
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "All",
+                    Value = "All"
+                });
+
+            }
+            else
+            {
+                foreach (var item in db.semisters)
+                {
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = item.SemisterName,
+                        Value = item.Id.ToString()
+                    });
+                }
+                listItems.Add(new SelectListItem
+                {
+                    Text = "All",
+                    Value = "All"
+                });
+            }
+            ViewBag.SemId = listItems;
+
             return View(notice);
         }
 
@@ -255,11 +328,51 @@ namespace SISProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "NoticeId,Title,ShortDescription,LongDescription,NoticeType,Image")] Notice notice)
+        public ActionResult Edit([Bind(Include = "NoticeId,Title,ShortDescription,LongDescription,NoticeType,Image")] Notice notice,HttpPostedFileBase img)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(notice).State = EntityState.Modified;
+                var noti = db.notices.Find(notice.NoticeId);
+                string path1 = "";
+                if (img != null && img.ContentLength > 0)
+                {
+                 
+                    int fileno=notice.NoticeId;
+              
+
+                    //Create a New instance of PDFWriter Class for Output File
+                    string firstpath1 = "/Path/";
+                    bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
+                    string firstpath2 = "/Path/" + fileno + "/";
+                    bool exists2 = System.IO.Directory.Exists(Server.MapPath(firstpath2));
+                    if (!exists1)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
+
+                    }
+                    if (!exists2)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(firstpath2));
+
+                    }
+
+                    path1 = "/Path/" + fileno + "/" + img.FileName;
+                    img.SaveAs(Server.MapPath(path1));
+                    noti.Image = path1;
+
+
+                }
+                else
+                {
+                    path1 = db.notices.Where(m => m.NoticeId == notice.NoticeId).FirstOrDefault().Image;
+                }
+                string a = texttopdf(notice.Title, notice.ShortDescription, notice.LongDescription, path1,notice.NoticeId);
+                noti.path = a;
+                noti.Title = notice.Title;
+                noti.ShortDescription = notice.ShortDescription;
+                noti.LongDescription = notice.LongDescription;
+                noti.NoticeType = notice.NoticeType;
+                db.Entry(noti).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

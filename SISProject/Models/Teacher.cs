@@ -14,7 +14,9 @@ namespace SISProject.Models
         public string PhoneNo { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
+        public DateTime? HireDate { get; set; }
         public bool status { get; set; }
+        public string NotificationSeenDate { get; set; }
         public string photopath { get; set; }
         [NotMapped]
         public HttpPostedFileBase photo { get; set; }

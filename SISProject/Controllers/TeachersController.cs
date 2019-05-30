@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -23,7 +24,7 @@ namespace SISProject.Controllers
         // GET: Teachers
         public ActionResult Index()
         {
-            return View(db.teachers.ToList());
+            return View(db.teachers.Where(m=>m.status==true).ToList());
         }
 
         // GET: Teachers/Details/5
@@ -52,7 +53,7 @@ namespace SISProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( Teacher teacher)
+        public ActionResult Create( Teacher teacher,HttpPostedFileBase photo)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +63,48 @@ namespace SISProject.Controllers
                     ModelState.AddModelError("", "Email already exists");
                     return View();
                 }
+                if (photo != null && photo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(photo.FileName);
+                    var fileName1 = Path.GetFileNameWithoutExtension(photo.FileName);
+                    fileName1 = fileName1.Replace(" ", "_");
+
+                    // extract only the fielname
+                    var ext = Path.GetExtension(fileName.ToLower());            //extract only the extension of filename and then convert it into lower case.
+
+
+                    int name;
+                    try
+                    {
+                        name = db.teachers.OrderByDescending(m => m.Id).FirstOrDefault().Id;
+                    }
+                    catch
+                    {
+                        name = 1;
+                    }
+                    string firstpath1 = "/TeaPhoto/";
+                    string secondpath = "/TeaPhoto/" + name + "/";
+                    bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
+                    bool exists2 = System.IO.Directory.Exists(Server.MapPath(secondpath));
+                    if (!exists1)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
+
+                    }
+                    if (!exists2)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(secondpath));
+
+                    }
+                    var path = Server.MapPath("/TeaPhoto/" + name + "/" + fileName1 + ext);
+
+                    photo.SaveAs(path);
+                    teacher.photopath = "/TeaPhoto/" + name + "/" + fileName1 + ext;
+
+
+                }
+
+                
                 Random generator = new Random();
                 String password = generator.Next(0, 999999).ToString("D6");
 
@@ -96,6 +139,7 @@ namespace SISProject.Controllers
                         return new HttpStatusCodeResult(HttpStatusCode.RequestTimeout);
                     }
                 }
+                teacher.status = true;
                 db.teachers.Add(teacher);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -134,6 +178,30 @@ namespace SISProject.Controllers
             }
             return View(teacher);
         }
+
+        public ActionResult status(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Teacher student = db.teachers.Find(id);
+            if (student.status == true)
+            {
+                student.status = false;
+            }
+            else
+            {
+                student.status = true;
+            }
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
         // GET: Teachers/Delete/5
         public ActionResult Delete(int? id)
