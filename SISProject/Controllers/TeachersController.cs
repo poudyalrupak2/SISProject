@@ -168,11 +168,55 @@ namespace SISProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Email,PhoneNo,Address")] Teacher teacher)
+        public ActionResult Edit( Teacher teacher,HttpPostedFileBase photo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(teacher).State = EntityState.Modified;
+                if (photo != null && photo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(photo.FileName);
+                    var fileName1 = Path.GetFileNameWithoutExtension(photo.FileName);
+                    fileName1 = fileName1.Replace(" ", "_");
+
+                    // extract only the fielname
+                    var ext = Path.GetExtension(fileName.ToLower());            //extract only the extension of filename and then convert it into lower case.
+
+
+                    int name;
+                    name = teacher.Id;
+                    string firstpath1 = "/TeaPhoto/";
+                    string secondpath = "/TeaPhoto/" + name + "/";
+                    bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
+                    bool exists2 = System.IO.Directory.Exists(Server.MapPath(secondpath));
+                    if (!exists1)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
+
+                    }
+                    if (!exists2)
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath(secondpath));
+
+                    }
+                    var path = Server.MapPath("/TeaPhoto/" + name + "/" + fileName1 + ext);
+
+                    photo.SaveAs(path);
+                    teacher.photopath = "/TeaPhoto/" + name + "/" + fileName1 + ext;
+
+
+                }
+                else
+                {
+                    teacher.photopath = db.teachers.Where(m => m.Id == teacher.Id).FirstOrDefault().photopath;
+                }
+                Teacher tea = db.teachers.Where(m => m.Id == teacher.Id).FirstOrDefault();
+                tea.Name = teacher.Name;
+                tea.HireDate = teacher.HireDate;
+                tea.PhoneNo = teacher.PhoneNo;
+                tea.photopath = teacher.photopath;
+                tea.Gender = teacher.Gender;
+                tea.Address = tea.Address;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

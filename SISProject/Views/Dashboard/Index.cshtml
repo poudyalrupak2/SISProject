@@ -7,7 +7,7 @@
 <div class="row small-spacing">
     <div class="col-sm-6 col-lg-3 col-xs-12">
         <div class="box-content">
-            <h4 class="box-title text-orange">Students</h4>
+            <h4 class="box-title text-primary">Students</h4>
             <!-- /.box-title -->
             <div class="dropdown js__drop_down">
                 <a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
@@ -18,9 +18,9 @@
                 <div id="traffic-sparkline-chart-3" class="left-content"></div>
                 <!-- /#traffic-sparkline-chart-3 -->
                 <div class="right-content">
-                    <h2 class="counter text-danger">@Model.Student</h2>
+                    <h2 class="counter text-primary">@Model.Student</h2>
                     <!-- /.counter -->
-                    <p class="text text-danger">View students</p>
+                    <a class="text text-primary" href="@Url.Action("Index","students")">View students</a>
                     <!-- /.text -->
                 </div>
                 <!-- .right-content -->
@@ -46,7 +46,7 @@
                 <div class="right-content">
                     <h2 class="counter text-info">@Model.Teacher</h2>
                     <!-- /.counter -->
-                    <p class="text text-info"> View Teachers</p>
+                    <a href="@Url.Action("index","teachers")" class="text text-info"> View Teachers</a>
                     <!-- /.text -->
                 </div>
                 <!-- .right-content -->
@@ -59,7 +59,7 @@
 
     <div class="col-sm-6 col-lg-3 col-xs-12">
         <div class="box-content">
-            <h4 class="box-title text-success">Disabled Student</h4>
+            <h4 class="box-title text-danger">Disabled Student</h4>
             <!-- /.box-title -->
             <div class="dropdown js__drop_down">
                 <a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
@@ -71,9 +71,9 @@
                 <div id="traffic-sparkline-chart-2" class="left-content margin-top-10"></div>
                 <!-- /#traffic-sparkline-chart-2 -->
                 <div class="right-content">
-                    <h2 class="counter text-success">@Model.DisabledStudent</h2>
+                    <h2 class="counter text-danger">@Model.DisabledStudent</h2>
                     <!-- /.counter -->
-                    <p class="text text-success">View Disabled Student</p>
+                    <p class="text text-danger"> Disabled Student</p>
                     <!-- /.text -->
                 </div>
                 <!-- .right-content -->

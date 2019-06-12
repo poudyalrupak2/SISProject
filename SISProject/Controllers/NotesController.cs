@@ -34,11 +34,11 @@ namespace SISProject.Controllers
                 int id = Convert.ToInt32(Session["id"].ToString());
                 string email = context.login.Where(m => m.Id == id).FirstOrDefault().Email;
                 int realid = context.students.Where(m => m.Email == email).FirstOrDefault().Id;
-                IRater rate = new LinearRater(-4, 2, 3, 1);
+                IRater rate = new LinearRater(-4, 2, 1, 2);
                 IComparer compare = new CorrelationUserComparer();
                 recommender = new UserCollaborativeFilterRecommender(compare, rate, 200);
                 UserBehaviorDatabaseParser parser = new UserBehaviorDatabaseParser();
-                UserBehaviorDatabase db1 = parser.LoadUserBehaviorDatabase("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt");
+                UserBehaviorDatabase db1 = parser.LoadUserBehaviorDatabase("/Data/NewBehavior.txt");
                 UserBehaviorTransformer ubt = new UserBehaviorTransformer(db1);
                 recommender.Train(db1);
 
@@ -100,11 +100,14 @@ namespace SISProject.Controllers
             
             UserBehaviorDatabaseParser parser = new UserBehaviorDatabaseParser();
 
-            UserBehaviorDatabase db1 = parser.LoadUserBehaviorDatabase("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt");
+            UserBehaviorDatabase db1 = parser.LoadUserBehaviorDatabase("/Data/NewBehavior.txt");
 
             UserBehaviorTransformer ubt = new UserBehaviorTransformer(db1);
             int userid = Convert.ToInt32(Session["id"].ToString());
-            string name = context.students.Where(m => m.Id == userid).FirstOrDefault().FirstName;
+            string email = context.login.Where(m => m.Id == userid).FirstOrDefault().Email;
+            int realid = context.students.Where(m => m.Email == email).FirstOrDefault().Id;
+
+            string name = context.students.Where(m => m.Id == realid).FirstOrDefault().FirstName;
             UplodedFile admin = context.ufiles.Find(id);
             SimilarViewModel sam = new SimilarViewModel();
             sam.Description = admin.Description;
@@ -129,11 +132,11 @@ namespace SISProject.Controllers
                 }
             }
             sam.uplodedFiles = up;
-            var text = System.IO.File.ReadAllText("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt");
-            List<string> lines = System.IO.File.ReadAllLines("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt").ToList();
+            var text = System.IO.File.ReadAllText("/Data/NewBehavior.txt");
+            List<string> lines = System.IO.File.ReadAllLines("/Data/NewBehavior.txt").ToList();
             int index = text.IndexOf("# End");
-            text = text.Insert(index,"1,View,"+userid+","+name+","+admin.Id+","+admin.Name+ Environment.NewLine);
-            System.IO.File.WriteAllText("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt", text);
+            text = text.Insert(index,"1,View,"+realid+","+name+","+admin.Id+","+admin.Name+ Environment.NewLine);
+            System.IO.File.WriteAllText("/Data/NewBehavior.txt", text);
             
 
 
@@ -144,7 +147,11 @@ namespace SISProject.Controllers
         {
 
             int userid = Convert.ToInt32(Session["id"].ToString());
-            string name = context.students.Where(m => m.Id == userid).FirstOrDefault().FirstName;
+            string email = context.login.Where(m => m.Id == userid).FirstOrDefault().Email;
+            int realid = context.students.Where(m => m.Email == email).FirstOrDefault().Id;
+
+            string name = context.students.Where(m => m.Id == realid).FirstOrDefault().FirstName;
+
             UplodedFile admin = context.ufiles.Find(id);
             string path1 = Server.MapPath(path);
             byte[] filedata = System.IO.File.ReadAllBytes(path1);
@@ -176,11 +183,11 @@ namespace SISProject.Controllers
                 }
             }
             byte[] filename = System.IO.File.ReadAllBytes(path1);
-            var text = System.IO.File.ReadAllText("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt");
-            List<string> lines = System.IO.File.ReadAllLines("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt").ToList();
+            var text = System.IO.File.ReadAllText("/Data/NewBehavior.txt");
+            List<string> lines = System.IO.File.ReadAllLines("/Data/NewBehavior.txt").ToList();
             int index = text.IndexOf("# End");
-            text = text.Insert(index, "1,Download," + userid + "," + name + "," + admin.Id + "," + admin.Name + Environment.NewLine);
-            System.IO.File.WriteAllText("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt", text);
+            text = text.Insert(index, "1,Download," + realid + "," + name + "," + admin.Id + "," + admin.Name + Environment.NewLine);
+            System.IO.File.WriteAllText("/Data/NewBehavior.txt", text);
             var cd = new System.Net.Mime.ContentDisposition
             {
                 FileName = file.Name,

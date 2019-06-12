@@ -160,6 +160,13 @@
                     @Model.Description
                 </td>
             </tr>
+            <tr>
+                <td colspan="2">
+                    <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Download", "Notes", new { Path = Model.uplodedFiles.Where(m=>m.Id==Model.Id).FirstOrDefault().Filename, id =Model.Id })">
+                        Download
+                    </a>
+                </td>
+            </tr>
             
         </table> 
     </div>

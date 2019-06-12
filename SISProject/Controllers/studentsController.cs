@@ -170,7 +170,7 @@ namespace SISProject.Controllers
                         db.login.Add(new Login
                         {
                             Email = student.Email,
-                            Role = "Student",
+                            Role = "student",
                             RandomPass = password,
                             LoginTime = DateTime.Now
 
@@ -192,11 +192,11 @@ namespace SISProject.Controllers
                 db.students.Add(student);
                 db.SaveChanges();
                 int id = student.Id;
-                var text = System.IO.File.ReadAllText("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt");
-                List<string> lines = System.IO.File.ReadAllLines("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt").ToList();
+                var text = System.IO.File.ReadAllText("/Data/NewBehavior.txt");
+                List<string> lines = System.IO.File.ReadAllLines("/Data/NewBehavior.txt").ToList();
                 int index = text.IndexOf("# User actions");
                 text = text.Insert(index, id + "," + student.FirstName + Environment.NewLine);
-                System.IO.File.WriteAllText("C:\\Users\\Rupak\\Desktop\\cp-user-behavior-master\\Data\\NewBehavior.txt", text);
+                System.IO.File.WriteAllText("/Data/NewBehavior.txt", text);
 
                 return RedirectToAction("Index");
             }

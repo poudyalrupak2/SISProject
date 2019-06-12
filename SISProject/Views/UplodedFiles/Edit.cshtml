@@ -4,66 +4,111 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
 }
+<script src="~/Content/dist/js/tag-input.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/assets/styles/style.min.css">
 
-<div class="panel-group">
-    <div class="panel panel-primary">
-        <div class="panel-heading">Upload Files</div>
-        <div class="panel-body">
+<!-- Material Design Icon -->
+<link rel="stylesheet" href="/assets/fonts/material-design/css/materialdesignicons.css">
 
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
+<!-- mCustomScrollbar -->
+<link rel="stylesheet" href="/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
 
-                <div class="form-horizontal">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.Id)
+<!-- Waves Effect -->
+<link rel="stylesheet" href="/assets/plugin/waves/waves.min.css">
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+<!-- Sweet Alert -->
+<!-- FlexDatalist -->
+<!-- Popover -->
+<link rel="stylesheet" href="/assets/plugin/popover/jquery.popSelect.min.css">
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.FIlesType, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.FIlesType, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.FIlesType, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+<!-- Select2 -->
+<link rel="stylesheet" href="/assets/plugin/select2/css/select2.min.css">
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Tags, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Tags, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.UplodedBy, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.UplodedBy, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.UplodedBy, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <center>
-                                <input type="submit" value="Edit" class="btn btn-primary" />
-                                @Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-primary" })
-                            </center>
-                        </div>
+
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Upload Files</div>
+                    <div class="panel-body">
+
+                        @using (Html.BeginForm("Edit", "UplodedFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.Id)
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-sm-3 " })
+                                    <div class="col-md-9">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "inp-type-1" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-sm-3" })
+                                    <div class="col-md-9">
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", id = "inp-type-5" }) @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Tags</label>
+                                    <div class="col-md-9">
+                                        <select class="select2_2 form-control" id="inp-type-4" multiple="multiple" name="obj"></select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Files</label>
+                                    <div class="col-md-9">
+                                        <input type="file" name="Files" class="form-control" id="exampleInputFile" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class=" col-md-12">
+                                        <center>
+                                            <input type="submit" value="Upload" class="btn btn-primary waves-effect waves-light" />
+                                            @Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-primary waves-effect waves-light" })
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
-            }
-
-         
             </div>
-        </div>
+            <link rel="stylesheet" href="~/content/dist/stylesheets/inputTag.css">
+            <!-- Placed at the end of the document so the pages load faster -->
+            <script src="/assets/scripts/jquery.min.js"></script>
+            <script src="/assets/scripts/modernizr.min.js"></script>
+            <script src="/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+            <script src="/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+            <script src="/assets/plugin/nprogress/nprogress.js"></script>
+
+            <script src="/assets/plugin/waves/waves.min.js"></script>
+            <!-- Full Screen Plugin -->
+            <script src="/assets/plugin/fullscreen/jquery.fullscreen-min.js"></script>
+
+            <!-- Flex Datalist -->
+            <script src="/assets/plugin/flexdatalist/jquery.flexdatalist.min.js"></script>
+
+            <!-- Popover -->
+            <!-- Select2 -->
+            <script src="/assets/plugin/select2/js/select2.min.js"></script>
+            <script src="/assets/scripts/form.demo.min.js"></script>
+
+            <script src="/assets/scripts/main.min.js"></script>
+            <!-- Multi Select -->
+
+
             @section Scripts {
                 @Scripts.Render("~/bundles/jqueryval")
+
+
             }
+
+

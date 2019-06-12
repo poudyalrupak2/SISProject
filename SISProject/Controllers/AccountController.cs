@@ -38,7 +38,7 @@ namespace HotelManagemant.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel l, string ReturnUrl)
         {
-             
+            
             ViewBag.ReturnUrl = ReturnUrl;
 
 
@@ -175,9 +175,8 @@ namespace HotelManagemant.Controllers
         }
         public ActionResult Logout()
         {
- 
                 FormsAuthentication.SignOut();
-
+          
                 Session.Abandon();
                 return RedirectToAction("Login");
             

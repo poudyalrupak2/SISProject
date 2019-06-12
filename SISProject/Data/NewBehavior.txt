@@ -1,0 +1,157 @@
+# Tags
+seven sem,seven sem notes,bsc csit 7th sem notes,compiler,bsc csit
+,eng,english,bba second sem,bs,six semister
+,book,it,bsc csit,seven sem
+,math,first sem,bsc csit,bsc csit first sem,bsc.csit
+,stat,stat book,book,bsc csit,books,second sem
+,bsc csit,dbms,bsc.csit,bsc csit seven sem,sql,oracle
+,dba,database,dbms,bsc csit,sevensem
+,
+,
+,seven sem,dfd,sad,fourthsem
+,adbms
+,java
+# Articles
+# Article ID, Article Name
+2,English,eng,english,bba second sem,bs,six semister
+3,It,book,it,bsc csit,seven sem
+4,calculas,math,first sem,bsc csit,bsc csit first sem,bsc.csit
+5,Stat,stat,stat book,book,bsc csit,books,second sem
+6,DBMs,bsc csit,dbms,bsc.csit,bsc csit seven sem,sql,oracle
+7,dba,dba,database,dbms,bsc csit,sevensem
+10,DfdDiagram,seven sem,dfd,sad,fourthsem
+11,ADBMS,adbms
+12,javafile,java
+# Users
+# User ID, User Name
+2,User 2
+3,User 3
+4,User 4
+5,User 5
+6,User 6
+7,User 7
+8,User 8
+9,User 9
+10,User 10
+11,User 10
+12,sandesh
+13,Rupak
+# User actions
+# Day, Action, UserID, UserName, ArticleID, ArticleName
+1,view,8,user 1,6,English
+1,view,8,user 1,5,CS
+1,view,2,user 2,6,English
+1,view,4,user 4,6,English
+1,view,5,user 5,5,CS
+1,view,5,user 5,3,AI
+1,view,3,user 3,3,AI
+1,view,3,user 3,5,CS
+1,View,2,raju,5,CS
+1,View,8,Ganu,5,CS
+
+1,View,2,raju,3,AI
+1,View,2,raju,3,AI
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,6,sham,2,It
+1,Download,6,sham,2,It
+1,Download,6,sham,2,It
+1,Download,6,sham,2,It
+1,Download,6,sham,2,It
+1,Download,6,sham,2,It
+1,Download,6,sham,2,It
+1,Download,6,sham,2,It
+1,Download,6,sham,2,It
+1,Download,6,sham,3,AI
+1,Download,6,sham,4,web tech
+1,View,6,sham,2,It
+
+1,Download,8,Ganu,2,It
+1,Download,8,Ganu,2,It
+1,Download,8,Ganu,2,It
+1,Download,8,Ganu,6,English
+1,Download,8,Ganu,6,English
+1,Download,8,Ganu,6,English
+
+1,Download,8,Ganu,5,CS
+1,Download,8,Ganu,5,CS
+1,View,8,Ganu,4,web tech
+1,Download,8,Ganu,4,web tech
+1,Download,8,Ganu,4,web tech
+1,Download,8,Ganu,5,CS
+1,Download,8,Ganu,5,CS
+1,Download,2,raju,4,web tech
+1,Download,2,raju,4,web tech
+1,Download,2,raju,4,web tech
+1,Download,2,raju,4,web tech
+1,Download,2,raju,4,web tech
+1,Download,2,raju,4,web tech
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,5,CS
+1,Download,2,raju,5,CS
+1,Download,2,raju,3,AI
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,3,AI
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,2,raju,2,It
+1,Download,3,ramu,2,It
+1,Download,3,ramu,2,It
+1,Download,3,ramu,6,English
+1,Download,3,ramu,6,English
+1,Download,3,ramu,4,web tech
+1,Download,3,ramu,4,web tech
+1,Download,3,ramu,4,web tech
+1,Download,3,ramu,4,web tech
+1,Download,3,ramu,4,web tech
+1,Download,3,ramu,4,web tech
+1,View,11,rayan,3,It
+1,View,11,rayan,4,calculas
+1,View,11,rayan,3,It
+1,View,11,rayan,2,English
+1,View,11,rayan,4,calculas
+1,View,13,Rupak,6,DBMs
+1,View,12,sandesh,6,DBMs
+1,View,12,sandesh,6,DBMs
+1,View,5,raman,2,English
+1,View,5,raman,2,English
+1,View,5,raman,5,Stat
+1,Download,5,raman,4,calculas
+1,View,5,raman,4,calculas
+1,Download,5,raman,4,calculas
+1,Download,9,Ganu,3,It
+1,View,12,sandesh,6,DBMs
+1,View,12,sandesh,4,calculas
+1,Download,12,sandesh,6,DBMs
+1,View,12,sandesh,2,English
+1,Download,12,sandesh,2,English
+1,Download,12,sandesh,2,English
+1,View,12,sandesh,2,English
+1,Download,12,sandesh,2,English
+1,View,12,sandesh,6,DBMs
+1,View,3,raju,7,dba
+1,Download,3,raju,7,dba
+1,View,3,raju,4,calculas
+1,View,12,sandesh,12,javafile
+1,Download,12,sandesh,11,ADBMS
+1,Download,12,sandesh,12,javafile
+1,Download,12,sandesh,6,DBMs
+1,Download,12,sandesh,7,dba
+1,View,12,sandesh,5,Stat
+1,View,12,sandesh,12,javafile
+# End
+
+
