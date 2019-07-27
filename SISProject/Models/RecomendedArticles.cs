@@ -17,6 +17,7 @@ namespace SISProject.Models
         public string UpdatedFileName { get; set; }
         public string imagepath { get; set; }
         public string Filename { get; set; }
+        public double Rating { get; set; }
 
 
 

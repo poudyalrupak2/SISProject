@@ -52,7 +52,7 @@ namespace SISProject.Controllers
             {
                 listItems.Add(new SelectListItem
                 {
-                    Text = item.SemisterName,
+                    Text = item.SemesterName,
                     Value = item.Id.ToString()
                 });
             }
@@ -87,7 +87,7 @@ namespace SISProject.Controllers
                 {
                     listItems.Add(new SelectListItem
                     {
-                        Text = item.SemisterName,
+                        Text = item.SemesterName,
                         Value = item.Id.ToString()
                     });
                 }
@@ -220,7 +220,7 @@ namespace SISProject.Controllers
             {
                 listItems.Add(new SelectListItem
                 {
-                    Text = item.SemisterName,
+                    Text = item.SemesterName,
                     Value = item.Id.ToString()
                 });
             }

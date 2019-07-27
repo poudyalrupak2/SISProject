@@ -51,10 +51,10 @@ namespace SISProject.Migrations
                 c => new
                     {
                         NoticeId = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
-                        ShortDescription = c.String(),
-                        LongDescription = c.String(),
-                        NoticeType = c.String(),
+                        Title = c.String(nullable: false),
+                        ShortDescription = c.String(nullable: false),
+                        LongDescription = c.String(nullable: false),
+                        NoticeType = c.String(nullable: false),
                         Image = c.String(),
                         CreatedBy = c.String(),
                         Createdate = c.DateTime(nullable: false),
@@ -67,7 +67,7 @@ namespace SISProject.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        SemisterName = c.String(),
+                        SemesterName = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -76,15 +76,15 @@ namespace SISProject.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(),
+                        FirstName = c.String(nullable: false),
                         MiddleName = c.String(),
-                        LastName = c.String(),
+                        LastName = c.String(nullable: false),
                         RollNo = c.Int(nullable: false),
                         SemisterId = c.Int(nullable: false),
                         Faculty = c.String(),
-                        Email = c.String(),
+                        Email = c.String(nullable: false),
                         Address = c.String(),
-                        Gender = c.String(),
+                        Gender = c.String(nullable: false),
                         EnrollDate = c.DateTime(),
                         StudentRole = c.String(),
                         NotificationSeenDate = c.String(),
@@ -100,11 +100,11 @@ namespace SISProject.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Email = c.String(),
-                        PhoneNo = c.String(),
+                        Name = c.String(nullable: false),
+                        Email = c.String(nullable: false),
+                        PhoneNo = c.String(nullable: false),
                         Address = c.String(),
-                        Gender = c.String(),
+                        Gender = c.String(nullable: false),
                         HireDate = c.DateTime(),
                         status = c.Boolean(nullable: false),
                         NotificationSeenDate = c.String(),
@@ -117,7 +117,7 @@ namespace SISProject.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        Name = c.String(nullable: false),
                         Description = c.String(),
                         FIlesType = c.String(),
                         Tags = c.String(),

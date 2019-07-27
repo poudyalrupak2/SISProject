@@ -89,9 +89,17 @@
             </div>
             <!-- /.ico-item -->
             <div class="ico-item">
-                <img src="\StuPhoto\noimg.png" alt="" class="ico-img">
+                @if (Session["image"] == null)
+                {
+                    <img src="\StuPhoto\noimg.png" alt="" class="ico-img">
+                }
+
+                else
+                {
+                    <img src="@Session["image"].ToString()" alt="" class="ico-img">
+                }
                 <ul class="sub-ico-item">
-                   
+
                     <li><a href="@Url.Action("Logout","Account")">Log Out</a></li>
                 </ul>
                 <!-- /.sub-ico-item -->

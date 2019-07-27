@@ -56,12 +56,12 @@ namespace HotelManagemant.Controllers
                         if (Url.IsLocalUrl(ReturnUrl))
                         {
                         var objAdmin = context.login.FirstOrDefault(a => (a.Email == l.Email));
-                            
+                       
                         FormsAuthentication.SetAuthCookie(l.Email, false);
                         Session.Add("id", Admin.Id);
                         Session.Add("userEmail", Admin.Email);
                         Session.Add("category", Admin.Role);
-
+                        Session.Add("image", null);
                         return Redirect(ReturnUrl);
                             
                         }
@@ -75,17 +75,23 @@ namespace HotelManagemant.Controllers
                             string[] roles = role.GetRolesForUser(objAdmin.Email);
                             if (roles.Contains("SuperAdmin"))
                             {
+
                                 return RedirectToAction("Index", "Dashboard");
 
                             }
                             if (roles.Contains("teacher"))
                             {
+                            Teacher teacher = context.teachers.Where(m => m.Email == Admin.Email).FirstOrDefault();
+                            string image = teacher.photopath;
+                            Session.Add("image", image);
                             return RedirectToAction("Indexs","UplodedFiles");
                             }
                             if (roles.Contains("student"))
                             {
-                                
-                                return RedirectToAction("Index", "Notes");
+                            student student = context.students.Where(m => m.Email == Admin.Email).FirstOrDefault();
+                            string image = student.photopath;
+                            Session.Add("image", image);
+                            return RedirectToAction("Index", "Notes");
                             }
                         }
                        

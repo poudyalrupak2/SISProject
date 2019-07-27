@@ -69,7 +69,8 @@ namespace SISProject.Controllers
                         Filename = ye.Filename,
                         imagepath = ye.imagepath,
                         UplodedDate = ye.UplodedDate,
-                        Id = ye.Id,
+                        Rating = suggestion.Rating,
+                      Id = ye.Id,
                     };
                     rem.Add(recom);
 

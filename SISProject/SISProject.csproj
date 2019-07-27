@@ -192,9 +192,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905300628045_init.cs" />
-    <Compile Include="Migrations\201905300628045_init.Designer.cs">
-      <DependentUpon>201905300628045_init.cs</DependentUpon>
+    <Compile Include="Migrations\201907251427129_init.cs" />
+    <Compile Include="Migrations\201907251427129_init.Designer.cs">
+      <DependentUpon>201907251427129_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907251513246_init2.cs" />
+    <Compile Include="Migrations\201907251513246_init2.Designer.cs">
+      <DependentUpon>201907251513246_init2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -1387,8 +1391,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905300628045_init.resx">
-      <DependentUpon>201905300628045_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907251427129_init.resx">
+      <DependentUpon>201907251427129_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907251513246_init2.resx">
+      <DependentUpon>201907251513246_init2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Recomendation\obj\Debug\UserBehavior.Properties.Resources.resources" />
     <EmbeddedResource Include="Recomendation\Properties\Resources.resx" />

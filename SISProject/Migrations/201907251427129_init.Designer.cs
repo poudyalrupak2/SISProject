@@ -13,7 +13,7 @@ namespace SISProject.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201905300628045_init"; }
+            get { return "201907251427129_init"; }
         }
         
         string IMigrationMetadata.Source

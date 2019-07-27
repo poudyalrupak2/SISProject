@@ -1,140 +1,23 @@
 namespace SISProject.Migrations
 {
-    using SISProject.Data;
-    using SISProject.Models;
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SisDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<SISProject.Data.SisDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(SisDbContext context)
+        protected override void Seed(SISProject.Data.SisDbContext context)
         {
-            byte[] passwordhash;
-            byte[] passwordsalt;
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                string password = "nepalnepal1";
-                passwordhash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                passwordsalt = hmac.Key;
-            }
-            context.semisters.AddOrUpdate(x => x.Id,
-                new Semister() {SemisterName="First Semester" },
-                new Semister() { SemisterName = "Second Semester" },
-                                new Semister() { SemisterName = "Third Semester" },
-                new Semister() { SemisterName = "Fourth Semester" },
+            //  This method will be called after migrating to the latest version.
 
-                                new Semister() { SemisterName = "Fifth Semester" },
-                new Semister() { SemisterName = "Sixth Semester" },
-                new Semister() { SemisterName = "Seventh Semester" },
-                new Semister() { SemisterName = "Eight Semester" }
-
-               );
-            context.teachers.AddOrUpdate(x => x.Id,
-               new Teacher() { Id=1,Name="Rajesh",Address="ilam",Email="john123@gmail.com",status = true },
-              new Teacher() { Id = 2, Name = "Ram", Address = "Jhapa", Email = "john23@gmail.com",status = true }
-                );
-            context.students.AddOrUpdate(x => x.Id,
-             new student() { Id = 1, FirstName = "raju", LastName = " rai", Address = "Ilam", Email = "raj@gmail.com",Status=true,SemisterId=1 },
-           new student() { Id = 2, FirstName = "raju", LastName = " khanal", Address = "Ilam", Email = "raj2@gmail.com", Status = true, SemisterId = 2 },
-            new student() { Id = 3, FirstName = "ramu", LastName = "paji", Address = "Ilam", Email = "raj3@gmail.com", Status = true, SemisterId = 3 },
-            new student() { Id = 4, FirstName = "raman", LastName = "hawa", Address = "Ilam", Email = "raj4@gmail.com", Status = true, SemisterId = 4 },
-            new student() { Id = 5, FirstName = "ramjan", LastName = "Raju", Address = "Ilam", Email = "raj5@gmail.com", Status = true, SemisterId = 5 },
-            new student() { Id = 6, FirstName = "sham", LastName = "Rajan", Address = "Ilam", Email = "ram@gmail.com", Status = true, SemisterId = 6 },
-           new student() { Id = 7, FirstName = "sayam", LastName = "Raan", Address = "Ilam", Email = "ram1@gmail.com", Status = true, SemisterId = 7 },
-            new student() { Id = 8, FirstName = "Ganu", LastName = "Raa", Address = "Ilam", Email = "ram2@gmail.com", Status = true, SemisterId = 8 },
-           new student() { Id = 9, FirstName = "ramya", LastName = "Raaj", Address = "Ilam", Email = "ram3@gmail.com", Status = true, SemisterId = 1 },
-            new student() { Id = 10, FirstName = "rayan", LastName = "Raanu", Address = "Ilam", Email = "ram4@gmail.com", Status = true, SemisterId = 2 });
-            context.login.AddOrUpdate(x => x.Id,
-           new Login
-           {
-               Id = 1,
-               Email = "poudyalrupak2@gmail.com",
-               Role = "SuperAdmin",
-               PasswordHash = passwordhash,
-               PasswordSalt = passwordsalt
-           },
-
-            new Login
-            {
-                Id = 2,
-                Email = "raj2@gmail.com",
-                Role = "student",
-                PasswordHash = passwordhash,
-                PasswordSalt = passwordsalt
-            },
-             new Login
-             {
-                 Id = 3,
-                 Email = "raj3@gmail.com",
-                 Role = "student",
-                 PasswordHash = passwordhash,
-                 PasswordSalt = passwordsalt
-             },
-              new Login
-              {
-                  Id = 4,
-                  Email = "raj4@gmail.com",
-                  Role = "student",
-                  PasswordHash = passwordhash,
-                  PasswordSalt = passwordsalt
-              },
-               new Login
-               {
-                   Id = 5,
-                   Email = "raj5@gmail.com",
-                   Role = "student",
-                   PasswordHash = passwordhash,
-                   PasswordSalt = passwordsalt
-               },
-                new Login
-                {
-                    Id = 6,
-                    Email = "ram@gmail.com",
-                    Role = "student",
-                    PasswordHash = passwordhash,
-                    PasswordSalt = passwordsalt
-                },
-                 new Login
-                 {
-                     Id = 7,
-                     Email = "raj1@gmail.com",
-                     Role = "student",
-                     PasswordHash = passwordhash,
-                     PasswordSalt = passwordsalt
-                 },
-                  new Login
-                  {
-                      Id = 8,
-                      Email = "ram2@gmail.com",
-                      Role = "student",
-                      PasswordHash = passwordhash,
-                      PasswordSalt = passwordsalt
-                  },
-                  new Login
-                  {
-                      Id = 9,
-                      Email = "john123@gmail.com",
-                      Role = "teacher",
-                      PasswordHash = passwordhash,
-                      PasswordSalt = passwordsalt
-                  }
-
-
-
-
-
-
-
-            );
-
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data.
         }
     }
 }

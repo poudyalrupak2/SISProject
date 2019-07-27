@@ -49,6 +49,7 @@ namespace SISProject.Controllers
         // GET: Notices/Create
         public ActionResult Create()
         {
+           
             List<SelectListItem> listItems = new List<SelectListItem>();
 
             if (Session["category"].ToString() == "SuperAdmin")
@@ -58,7 +59,7 @@ namespace SISProject.Controllers
                 {
                     listItems.Add(new SelectListItem
                     {
-                        Text = item.SemisterName,
+                        Text = item.SemesterName,
                         Value = item.Id.ToString()
                     });
                 }
@@ -80,7 +81,7 @@ namespace SISProject.Controllers
                 {
                     listItems.Add(new SelectListItem
                     {
-                        Text = item.SemisterName,
+                        Text = item.SemesterName,
                         Value = item.Id.ToString()
                     });
                 }
@@ -262,6 +263,49 @@ namespace SISProject.Controllers
                 return RedirectToAction("Index");
             }
 
+            List<SelectListItem> listItems = new List<SelectListItem>();
+
+            if (Session["category"].ToString() == "SuperAdmin")
+            {
+
+                foreach (var item in db.semisters)
+                {
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = item.SemesterName,
+                        Value = item.Id.ToString()
+                    });
+                }
+                listItems.Add(new SelectListItem
+                {
+                    Text = "teacher",
+                    Value = "teacher"
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "All",
+                    Value = "All"
+                });
+
+            }
+            else
+            {
+                foreach (var item in db.semisters)
+                {
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = item.SemesterName,
+                        Value = item.Id.ToString()
+                    });
+                }
+                listItems.Add(new SelectListItem
+                {
+                    Text = "All",
+                    Value = "All"
+                });
+            }
+            ViewBag.SemId = listItems;
+
             return View(notice);
         }
 
@@ -286,7 +330,7 @@ namespace SISProject.Controllers
                 {
                     listItems.Add(new SelectListItem
                     {
-                        Text = item.SemisterName,
+                        Text = item.SemesterName,
                         Value = item.Id.ToString()
                     });
                 }
@@ -308,7 +352,7 @@ namespace SISProject.Controllers
                 {
                     listItems.Add(new SelectListItem
                     {
-                        Text = item.SemisterName,
+                        Text = item.SemesterName,
                         Value = item.Id.ToString()
                     });
                 }

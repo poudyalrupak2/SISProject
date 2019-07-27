@@ -57,6 +57,10 @@
                                     <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Details", "Notes", new { id = item.Id })">view details</a>
                                     <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Download", "Notes", new { Path = item.Filename, id = item.Id })">
                                         Download</a>
+                                    <input  onclick="this.value='@item.Rating'" type="button" value="Show Rating" id="myButton1" class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" />
+                                  
+
+
                                 </div>
                             </div>
                         </div>
