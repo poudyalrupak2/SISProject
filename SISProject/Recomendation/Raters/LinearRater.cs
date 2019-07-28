@@ -19,7 +19,7 @@ namespace UserBehavior.Raters
         private double maxWeight;
 
         public LinearRater()
-            : this (-5.0, 1.0, 0.5, 3, 5.0)
+            : this (-5.0, 1.0, 0.5, 1, 5.0)
         {
         }
 

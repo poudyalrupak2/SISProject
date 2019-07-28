@@ -61,7 +61,7 @@ namespace SISProject.Controllers
                 if (data > 0)
                 {
                     ModelState.AddModelError("", "Email already exists");
-                    return View();
+                    return View(teacher);
                 }
                 if (photo != null && photo.ContentLength > 0)
                 {

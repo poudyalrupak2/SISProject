@@ -34,7 +34,7 @@ namespace SISProject.Controllers
                 int id = Convert.ToInt32(Session["id"].ToString());
                 string email = context.login.Where(m => m.Id == id).FirstOrDefault().Email;
                 int realid = context.students.Where(m => m.Email == email).FirstOrDefault().Id;
-                IRater rate = new LinearRater(-4, 2, 1, 2);
+                IRater rate = new LinearRater(-4, 2, 0.5, 1);
                 IComparer compare = new CorrelationUserComparer();
                 recommender = new UserCollaborativeFilterRecommender(compare, rate, 200);
                 UserBehaviorDatabaseParser parser = new UserBehaviorDatabaseParser();
@@ -50,11 +50,14 @@ namespace SISProject.Controllers
                 ratings = 2;
                 List<Suggestion> result = new List<Suggestion>();
                 List<RecomendedArticles> rem = new List<RecomendedArticles>();
+                List<Suggestion> result2 = new List<Suggestion>();
+
                 RecomendedArticles recom;
                 if (ratings >= 1 && ratings <= 100)
                 {
                     new GetRecommendation { UserID = userId, Ratings = ratings };
                     result = recommender.GetSuggestions(userId, ratings);
+                    result2= recommender.GetSuggestions(userId, 6);
                 }
 
                 foreach (Suggestion suggestion in result)

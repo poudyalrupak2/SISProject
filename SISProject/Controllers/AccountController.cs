@@ -82,16 +82,32 @@ namespace HotelManagemant.Controllers
                             if (roles.Contains("teacher"))
                             {
                             Teacher teacher = context.teachers.Where(m => m.Email == Admin.Email).FirstOrDefault();
-                            string image = teacher.photopath;
-                            Session.Add("image", image);
-                            return RedirectToAction("Indexs","UplodedFiles");
+                            if (teacher.status == true)
+                            {
+                                string image = teacher.photopath;
+                                Session.Add("image", image);
+                                return RedirectToAction("Indexs", "UplodedFiles");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("", "you are disabled from login ");
+                                return View(l);
+                            }
                             }
                             if (roles.Contains("student"))
                             {
                             student student = context.students.Where(m => m.Email == Admin.Email).FirstOrDefault();
-                            string image = student.photopath;
-                            Session.Add("image", image);
-                            return RedirectToAction("Index", "Notes");
+                            if (student.Status == true)
+                            {
+                                string image = student.photopath;
+                                Session.Add("image", image);
+                                return RedirectToAction("Index", "Notes");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("", "you are disabled from login ");
+                                return View(l);
+                            }
                             }
                         }
                        

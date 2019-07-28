@@ -80,126 +80,119 @@ namespace SISProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<SelectListItem> listItems = new List<SelectListItem>();
-
-
-                foreach (var item in db.semisters)
+                var email = db.login.Where(m => m.Email == student.Email).ToList();
+                if (email.Count==0)
                 {
-                    listItems.Add(new SelectListItem
+                    if (photo != null && photo.ContentLength > 0)
                     {
-                        Text = item.SemesterName,
-                        Value = item.Id.ToString()
-                    });
-                }
-                //listItems.Add(new SelectListItem
-                //{
-                //    Text="teacher",
-                //    Value="teacher"
-                //});
-                //listItems.Add(new SelectListItem
-                //{
-                //    Text = "All",
-                //    Value = "All"
-                //});
+                        var fileName = Path.GetFileName(photo.FileName);
+                        var fileName1 = Path.GetFileNameWithoutExtension(photo.FileName);
+                        fileName1 = fileName1.Replace(" ", "_");
 
-                ViewBag.SemId = listItems;
+                        // extract only the fielname
+                        var ext = Path.GetExtension(fileName.ToLower());            //extract only the extension of filename and then convert it into lower case.
 
 
-                if (photo != null && photo.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(photo.FileName);
-                    var fileName1 = Path.GetFileNameWithoutExtension(photo.FileName);
-                    fileName1 = fileName1.Replace(" ", "_");
-
-                    // extract only the fielname
-                    var ext = Path.GetExtension(fileName.ToLower());            //extract only the extension of filename and then convert it into lower case.
-
-
-                    int name;
-                    try
-                    {
-                        name = db.students.OrderByDescending(m => m.Id).FirstOrDefault().Id;
-                    }
-                    catch
-                    {
-                        name = 1;
-                    }
-                    string firstpath1 = "/StuPhoto/";
-                    string secondpath = "/StuPhoto/" + name + "/";
-                    bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
-                    bool exists2 = System.IO.Directory.Exists(Server.MapPath(secondpath));
-                    if (!exists1)
-                    {
-                        System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
-
-                    }
-                    if (!exists2)
-                    {
-                        System.IO.Directory.CreateDirectory(Server.MapPath(secondpath));
-
-                    }
-                    var path = Server.MapPath("/StuPhoto/" + name + "/" + fileName1 + ext);
-
-                    photo.SaveAs(path);
-                    student.photopath = "/StuPhoto/" + name + "/" + fileName1 + ext;
-
-
-                }
-                int data = db.login.Where(t => t.Email == student.Email).Count();
-                if (data > 0)
-                {
-                    ModelState.AddModelError("", "Email already exists");
-                    return View();
-
-                }
-                Random generator = new Random();
-                String password = generator.Next(0, 999999).ToString("D6");
-
-
-
-                var message = new MailMessage();
-                message.To.Add(new MailAddress(student.Email));
-                message.Subject = "Account has been created";
-                message.Body = "Use this Password to login:" + password;
-                using (var smtp = new SmtpClient())
-                {
-                    try
-                    {
-
-                        smtp.Send(message);
-                        db.login.Add(new Login
+                        int name;
+                        try
                         {
-                            Email = student.Email,
-                            Role = "student",
-                            RandomPass = password,
-                            LoginTime = DateTime.Now
+                            name = db.students.OrderByDescending(m => m.Id).FirstOrDefault().Id;
+                        }
+                        catch
+                        {
+                            name = 1;
+                        }
+                        string firstpath1 = "/StuPhoto/";
+                        string secondpath = "/StuPhoto/" + name + "/";
+                        bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
+                        bool exists2 = System.IO.Directory.Exists(Server.MapPath(secondpath));
+                        if (!exists1)
+                        {
+                            System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
 
+                        }
+                        if (!exists2)
+                        {
+                            System.IO.Directory.CreateDirectory(Server.MapPath(secondpath));
 
-                        });
+                        }
+                        var path = Server.MapPath("/StuPhoto/" + name + "/" + fileName1 + ext);
 
-
-                        TempData["Message"] = "Student Created Successfully.";
+                        photo.SaveAs(path);
+                        student.photopath = "/StuPhoto/" + name + "/" + fileName1 + ext;
 
 
                     }
-                    catch (Exception e)
+                    int data = db.login.Where(t => t.Email == student.Email).Count();
+                    if (data > 0)
                     {
+                        ModelState.AddModelError("", "Email already exists");
+                        return View();
 
-                        return new HttpStatusCodeResult(HttpStatusCode.RequestTimeout);
                     }
-                }
-                student.Status = true;
-                db.students.Add(student);
-                db.SaveChanges();
-                int id = student.Id;
-                var text = System.IO.File.ReadAllText("/Data/NewBehavior.txt");
-                List<string> lines = System.IO.File.ReadAllLines("/Data/NewBehavior.txt").ToList();
-                int index = text.IndexOf("# User actions");
-                text = text.Insert(index, id + "," + student.FirstName + Environment.NewLine);
-                System.IO.File.WriteAllText("/Data/NewBehavior.txt", text);
+                    Random generator = new Random();
+                    String password = generator.Next(0, 999999).ToString("D6");
 
-                return RedirectToAction("Index");
+
+
+                    var message = new MailMessage();
+                    message.To.Add(new MailAddress(student.Email));
+                    message.Subject = "Account has been created";
+                    message.Body = "Use this Password to login:" + password;
+                    using (var smtp = new SmtpClient())
+                    {
+                        try
+                        {
+
+                            smtp.Send(message);
+                            db.login.Add(new Login
+                            {
+                                Email = student.Email,
+                                Role = "student",
+                                RandomPass = password,
+                                LoginTime = DateTime.Now
+
+
+                            });
+
+
+                            TempData["Message"] = "Student Created Successfully.";
+
+
+                        }
+                        catch (Exception e)
+                        {
+
+                            return new HttpStatusCodeResult(HttpStatusCode.RequestTimeout);
+                        }
+                    }
+                    student.Status = true;
+                    db.students.Add(student);
+                    db.SaveChanges();
+                    int id = student.Id;
+                    var text = System.IO.File.ReadAllText("/Data/NewBehavior.txt");
+                    List<string> lines = System.IO.File.ReadAllLines("/Data/NewBehavior.txt").ToList();
+                    int index = text.IndexOf("# User actions");
+                    text = text.Insert(index, id + "," + student.FirstName + Environment.NewLine);
+                    System.IO.File.WriteAllText("/Data/NewBehavior.txt", text);
+
+                    return RedirectToAction("Index");
+                }
+                ModelState.AddModelError("", "email already exists");
             }
+            List<SelectListItem> listItems = new List<SelectListItem>();
+
+
+            foreach (var item in db.semisters)
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = item.SemesterName,
+                    Value = item.Id.ToString()
+                });
+            }
+           
+            ViewBag.SemId = listItems;
             return View(student);
             
 
@@ -293,6 +286,19 @@ namespace SISProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<SelectListItem> listItems = new List<SelectListItem>();
+
+
+            foreach (var item in db.semisters)
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = item.SemesterName,
+                    Value = item.Id.ToString()
+                });
+            }
+
+            ViewBag.SemId = listItems;
             return View(student);
         }
         public ActionResult status(int? id)
