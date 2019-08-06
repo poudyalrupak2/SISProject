@@ -184,6 +184,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\NoticesController.cs" />
+    <Compile Include="Controllers\PDetailsController.cs" />
     <Compile Include="Controllers\SemistersController.cs" />
     <Compile Include="Controllers\studentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
@@ -268,6 +269,7 @@
     <Compile Include="ViewModel\NRViewModel.cs" />
     <Compile Include="ViewModel\PasswordConform.cs" />
     <Compile Include="ViewModel\SimilarViewModel.cs" />
+    <Compile Include="ViewModel\TeacherViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\fonts\font-awesome\css\font-awesome.css" />
@@ -1391,6 +1393,9 @@
     <Content Include="Views\ClientNotes\TeacherIndex.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\students\DisabledStudent.cshtml" />
+    <Content Include="Views\PDetails\Teacher.cshtml" />
+    <Content Include="Views\PDetails\Student.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

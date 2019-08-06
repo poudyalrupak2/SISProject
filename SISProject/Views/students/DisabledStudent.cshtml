@@ -1,0 +1,79 @@
+﻿
+@model IEnumerable<SISProject.Models.student>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<link rel="stylesheet" href="assets/plugin/datatables/media/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="assets/plugin/datatables/extensions/Responsive/css/responsive.bootstrap.min.css">
+
+<table class="table table-bordered table-responsive" id="example">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @item.FirstName &nbsp; @item.LastName
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                <a href="@Url.Action("Details","Students",new { id = item.Id })" class="btn btn-info waves-effect waves-light">
+                    <i class="ico ico-right fa fa-info"></i>Details
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script src="/assets/scripts/jquery.min.js"></script>
+
+<script src="/assets/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/assets/plugin/datatables/media/js/dataTables.bootstrap.min.js"></script>
+<script src="/assets/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+<script src="/assets/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js"></script>
+<script>
+
+    $('#example').DataTable({
+        "columnDefs": [
+
+            { "orderable": false, "targets": 3 },
+
+
+
+        ],
+        "pageLength": 30,
+        "bInfo": false,
+        "dom": "Bfrtp",
+
+    });
+
+</script>
+<script src="assets/scripts/main.min.js"></script>
+

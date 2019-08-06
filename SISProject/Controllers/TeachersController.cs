@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using HotelManagemant.Filters;
 using SISProject.Data;
 using SISProject.Models;
+using SISProject.ViewModel;
 
 namespace SISProject.Controllers
 {
@@ -53,7 +54,7 @@ namespace SISProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( Teacher teacher,HttpPostedFileBase photo)
+        public ActionResult Create( TeacherViewModel teacher,HttpPostedFileBase photo)
         {
             if (ModelState.IsValid)
             {
@@ -148,7 +149,22 @@ namespace SISProject.Controllers
                     return View(teacher);
                 }
                 teacher.status = true;
-                db.teachers.Add(teacher);
+                db.teachers.Add(new Teacher {
+                    Name = teacher.FirstName + " " + teacher.MiddleName + " " + teacher.LastName,
+                    Address=teacher.Address,
+                    Email=teacher.Email,
+                    Gender=teacher.Gender,
+                    HireDate=teacher.HireDate,
+                    status=true,
+                    PhoneNo=teacher.PhoneNo,
+                    photopath=teacher.photopath
+
+                    
+                });
+
+
+
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

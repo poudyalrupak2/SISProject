@@ -26,6 +26,10 @@ namespace SISProject.Controllers
         {
             return View(db.students.Where(m=>m.Status==true).ToList());
         }
+        public ActionResult DisabledStudent()
+        {
+            return View(db.students.Where(m => m.Status == false).ToList());
+        }
 
         // GET: students/Details/5E:\SISProject\SISProject\Controllers\TeachersController.cs
         public ActionResult Details(int? id)

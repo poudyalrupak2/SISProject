@@ -1,10 +1,9 @@
 ﻿@model SISProject.Models.Teacher
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Teacher";
+    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
 }
-
 
 
 
@@ -85,13 +84,7 @@
 
                 </tr>
             </table>
-            <p>
-                <center>
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
-                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
-                </center>
 
-            </p>
-</div>
-</div>
+        </div>
+    </div>
 </div>

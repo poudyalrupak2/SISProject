@@ -66,7 +66,7 @@
             <div class="ico-item">
                 <a href="#" class="ico-item fa fa-search js__toggle_open" data-target="#searchform-header"></a>
                 @(Html.BeginForm("Index","Notes",FormMethod.Get,new {id= "searchform-header",@class="searchform js__toggle"}))
-                @*<form action="#" id="searchform-header" class="searchform js__toggle">*@<input type="search" placeholder="Search..." name="search" class="input-search"><button class="fa fa-search button-search" type="submit"></button>}
+                <input type="search" placeholder="Search..." name="search" class="input-search"><button class="fa fa-search button-search" type="submit"></button>}
                 <!-- /.searchform -->
             </div>
             <!-- /.ico-item -->
@@ -99,7 +99,10 @@
                 <img src="@Session["image"].ToString()" alt="" class="ico-img">
                 }
                 <ul class="sub-ico-item">
+                    <li>
+                    <a href="@Url.Action("Student","PDetails",new{id=Session["id"] })">view profile</a>
 
+                    </li>
                     <li><a href="@Url.Action("Logout","Account")">Log Out</a></li>
                 </ul>
                 <!-- /.sub-ico-item -->

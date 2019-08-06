@@ -1,11 +1,9 @@
-﻿@model SISProject.Models.Teacher
+﻿@model SISProject.Models.student
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Student";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
 }
-
-
 
 
 <style>
@@ -17,7 +15,7 @@
 
     th, td {
         text-align: left;
-        patding: 8px;
+        padding: 8px;
     }
 
     tr:nth-child(even) {
@@ -32,18 +30,29 @@
         <div class="panel-body">
             <table class="table table-responsive table-bordered">
                 <tr>
+
                     <td colspan="2" style="text-align:center">
                         <img src="@Model.photopath" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @Html.DisplayNameFor(model => model.Name)
+                        Name
                     </td>
 
                     <td>
-                        @Html.DisplayFor(model => model.Name)
+                        @Model.FirstName &nbsp; @Model.LastName
                     </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.Gender)
+                    </td>
+
                 </tr>
                 <tr>
                     <td>
@@ -56,42 +65,38 @@
                 </tr>
                 <tr>
                     <td>
-                        @Html.DisplayNameFor(model => model.PhoneNo)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(model => model.PhoneNo)
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
                         @Html.DisplayNameFor(model => model.Address)
                     </td>
 
                     <td>
                         @Html.DisplayFor(model => model.Address)
                     </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.EnrollDate)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.EnrollDate)
+                    </td>
 
                 </tr>
                 <tr>
                     <td>
-                        @Html.DisplayNameFor(model => model.HireDate)
+                        @Html.DisplayNameFor(model => model.RollNo)
                     </td>
 
                     <td>
-                        @Html.DisplayFor(model => model.HireDate)
+                        @Html.DisplayFor(model => model.RollNo)
                     </td>
 
                 </tr>
             </table>
-            <p>
-                <center>
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
-                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
-                </center>
 
-            </p>
+           
+        </div>
+    </div>
 </div>
-</div>
-</div>
+
