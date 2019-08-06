@@ -162,7 +162,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Download", "Notes", new { Path = Model.uplodedFiles.Where(m=>m.Id==Model.Id).FirstOrDefault().Filename, id =Model.Id })">
+                    <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Download", "Notes", new { Path =Model.path, id =Model.Id })">
                         Download
                     </a>
                 </td>
@@ -176,8 +176,13 @@
                 <div class="col-md-12 blog-pull-right">
                     <div class="row">
                         <h1>Similar articles</h1>
+                        @{ 
+                            int i = 0;
+                        }
                         @foreach (var item in Model.uplodedFiles)
                         {
+                         
+                            
                             <div class="col-md-12">
                                 <div class="service-block bg-white">
                                     <div class="thumb">
@@ -194,13 +199,14 @@
                                     <div class="content text-left flip p-25 pt-0">
                                         <h4 class="line-bottom mb-10">@item.Name </h4>
                                         <p>@item.Description</p>
-                                        <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Details","Notes",new { id = item.Id })">view details</a>
-                                        <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Download", "Notes",new { Path = item.Filename,id=item.Id })">
+                                        <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Details", "Notes", new { id = item.Id })">view details</a>
+                                        <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="@Url.Action("Download", "Notes", new { Path = item.Filename, id = item.Id })">
                                             Download
                                         </a>
-                                    </div>
+                                        <input onclick="this.value='@Model.point[i]'" type="button" value="Show Rating" id="myButton1" class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" />                           </div>
                                 </div>
                             </div>
+                            i++;
                         }
                     </div>
                 </div>

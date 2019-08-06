@@ -54,6 +54,7 @@ namespace UserBehavior.Objects
             //var tags222 = art[userid].TagCounts;
             List<ArticleAndTag> art1 = art.OrderBy(m => m.ArticleID).ToList();
            var tags = art.Where(m => m.ArticleID == userid).Select(m=>m.TagCounts).ToList();
+            
             var totalarticle = art.Select(m => m.ArticleName).Distinct().ToList();
             int total = totalarticle.Count();
             List<string> name = new List<string>();
@@ -67,11 +68,11 @@ namespace UserBehavior.Objects
                 {
                     name.Add(tangs[k].Name);
                 }
-            
+            int a = art1.FindIndex(m => m.ArticleID == userid);
 
             for (int j = 0; j <total; j++)
             {
-                if (j==userid-1)
+                if (j==a)
                 {
                     continue;
                 }

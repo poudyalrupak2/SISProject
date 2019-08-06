@@ -57,87 +57,95 @@ namespace SISProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                int data = db.login.Where(t => t.Email == teacher.Email).Count();
-                if (data > 0)
+                if (teacher.HireDate < DateTime.Now && teacher.HireDate > Convert.ToDateTime("2000/10/18"))
                 {
-                    ModelState.AddModelError("", "Email already exists");
-                    return View(teacher);
-                }
-                if (photo != null && photo.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(photo.FileName);
-                    var fileName1 = Path.GetFileNameWithoutExtension(photo.FileName);
-                    fileName1 = fileName1.Replace(" ", "_");
-
-                    // extract only the fielname
-                    var ext = Path.GetExtension(fileName.ToLower());            //extract only the extension of filename and then convert it into lower case.
-
-
-                    int name;
-                    try
+                    int data = db.login.Where(t => t.Email == teacher.Email).Count();
+                    if (data > 0)
                     {
-                        name = db.teachers.OrderByDescending(m => m.Id).FirstOrDefault().Id;
+                        ModelState.AddModelError("", "Email already exists");
+                        return View(teacher);
                     }
-                    catch
+                    if (photo != null && photo.ContentLength > 0)
                     {
-                        name = 1;
-                    }
-                    string firstpath1 = "/TeaPhoto/";
-                    string secondpath = "/TeaPhoto/" + name + "/";
-                    bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
-                    bool exists2 = System.IO.Directory.Exists(Server.MapPath(secondpath));
-                    if (!exists1)
-                    {
-                        System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
+                        var fileName = Path.GetFileName(photo.FileName);
+                        var fileName1 = Path.GetFileNameWithoutExtension(photo.FileName);
+                        fileName1 = fileName1.Replace(" ", "_");
 
-                    }
-                    if (!exists2)
-                    {
-                        System.IO.Directory.CreateDirectory(Server.MapPath(secondpath));
-
-                    }
-                    var path = Server.MapPath("/TeaPhoto/" + name + "/" + fileName1 + ext);
-
-                    photo.SaveAs(path);
-                    teacher.photopath = "/TeaPhoto/" + name + "/" + fileName1 + ext;
+                        // extract only the fielname
+                        var ext = Path.GetExtension(fileName.ToLower());            //extract only the extension of filename and then convert it into lower case.
 
 
-                }
-
-                
-                Random generator = new Random();
-                String password = generator.Next(0, 999999).ToString("D6");
-
-
-
-                var message = new MailMessage();
-                message.To.Add(new MailAddress(teacher.Email));
-                message.Subject = "Account has been created";
-                message.Body = "Use this Password to login:" + password;
-                using (var smtp = new SmtpClient())
-                {
-                    try
-                    {
-
-                        smtp.Send(message);
-                        db.login.Add(new Login
+                        int name;
+                        try
                         {
-                            Email = teacher.Email,
-                            Role = "teacher",
-                            RandomPass = password,
+                            name = db.teachers.OrderByDescending(m => m.Id).FirstOrDefault().Id;
+                        }
+                        catch
+                        {
+                            name = 1;
+                        }
+                        string firstpath1 = "/TeaPhoto/";
+                        string secondpath = "/TeaPhoto/" + name + "/";
+                        bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
+                        bool exists2 = System.IO.Directory.Exists(Server.MapPath(secondpath));
+                        if (!exists1)
+                        {
+                            System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
 
+                        }
+                        if (!exists2)
+                        {
+                            System.IO.Directory.CreateDirectory(Server.MapPath(secondpath));
 
-                        });
+                        }
+                        var path = Server.MapPath("/TeaPhoto/" + name + "/" + fileName1 + ext);
 
-                        TempData["Message"] = "Teacher Created Successfully.";
+                        photo.SaveAs(path);
+                        teacher.photopath = "/TeaPhoto/" + name + "/" + fileName1 + ext;
 
 
                     }
-                    catch (Exception e)
+
+
+                    Random generator = new Random();
+                    String password = generator.Next(0, 999999).ToString("D6");
+
+
+
+                    var message = new MailMessage();
+                    message.To.Add(new MailAddress(teacher.Email));
+                    message.Subject = "Account has been created";
+                    message.Body = "Use this Password to login:" + password;
+                    using (var smtp = new SmtpClient())
                     {
+                        try
+                        {
 
-                        return new HttpStatusCodeResult(HttpStatusCode.RequestTimeout);
+                            smtp.Send(message);
+                            db.login.Add(new Login
+                            {
+                                Email = teacher.Email,
+                                Role = "teacher",
+                                RandomPass = password,
+
+
+                            });
+
+                            TempData["Message"] = "Teacher Created Successfully.";
+
+
+                        }
+                        catch (Exception e)
+                        {
+
+                            return new HttpStatusCodeResult(HttpStatusCode.RequestTimeout);
+                        }
                     }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "date you entered is not valid");
+                    return View(teacher);
                 }
                 teacher.status = true;
                 db.teachers.Add(teacher);
@@ -172,53 +180,57 @@ namespace SISProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (photo != null && photo.ContentLength > 0)
+                if (teacher.HireDate < DateTime.Now && teacher.HireDate > Convert.ToDateTime("2000/10/18"))
                 {
-                    var fileName = Path.GetFileName(photo.FileName);
-                    var fileName1 = Path.GetFileNameWithoutExtension(photo.FileName);
-                    fileName1 = fileName1.Replace(" ", "_");
-
-                    // extract only the fielname
-                    var ext = Path.GetExtension(fileName.ToLower());            //extract only the extension of filename and then convert it into lower case.
-
-
-                    int name;
-                    name = teacher.Id;
-                    string firstpath1 = "/TeaPhoto/";
-                    string secondpath = "/TeaPhoto/" + name + "/";
-                    bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
-                    bool exists2 = System.IO.Directory.Exists(Server.MapPath(secondpath));
-                    if (!exists1)
+                    if (photo != null && photo.ContentLength > 0)
                     {
-                        System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
+                        var fileName = Path.GetFileName(photo.FileName);
+                        var fileName1 = Path.GetFileNameWithoutExtension(photo.FileName);
+                        fileName1 = fileName1.Replace(" ", "_");
+
+                        // extract only the fielname
+                        var ext = Path.GetExtension(fileName.ToLower());            //extract only the extension of filename and then convert it into lower case.
+
+
+                        int name;
+                        name = teacher.Id;
+                        string firstpath1 = "/TeaPhoto/";
+                        string secondpath = "/TeaPhoto/" + name + "/";
+                        bool exists1 = System.IO.Directory.Exists(Server.MapPath(firstpath1));
+                        bool exists2 = System.IO.Directory.Exists(Server.MapPath(secondpath));
+                        if (!exists1)
+                        {
+                            System.IO.Directory.CreateDirectory(Server.MapPath(firstpath1));
+
+                        }
+                        if (!exists2)
+                        {
+                            System.IO.Directory.CreateDirectory(Server.MapPath(secondpath));
+
+                        }
+                        var path = Server.MapPath("/TeaPhoto/" + name + "/" + fileName1 + ext);
+
+                        photo.SaveAs(path);
+                        teacher.photopath = "/TeaPhoto/" + name + "/" + fileName1 + ext;
+
 
                     }
-                    if (!exists2)
+                    else
                     {
-                        System.IO.Directory.CreateDirectory(Server.MapPath(secondpath));
-
+                        teacher.photopath = db.teachers.Where(m => m.Id == teacher.Id).FirstOrDefault().photopath;
                     }
-                    var path = Server.MapPath("/TeaPhoto/" + name + "/" + fileName1 + ext);
+                    Teacher tea = db.teachers.Where(m => m.Id == teacher.Id).FirstOrDefault();
+                    tea.Name = teacher.Name;
+                    tea.HireDate = teacher.HireDate;
+                    tea.PhoneNo = teacher.PhoneNo;
+                    tea.photopath = teacher.photopath;
+                    tea.Gender = teacher.Gender;
+                    tea.Address = tea.Address;
 
-                    photo.SaveAs(path);
-                    teacher.photopath = "/TeaPhoto/" + name + "/" + fileName1 + ext;
-
-
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
-                else
-                {
-                    teacher.photopath = db.teachers.Where(m => m.Id == teacher.Id).FirstOrDefault().photopath;
-                }
-                Teacher tea = db.teachers.Where(m => m.Id == teacher.Id).FirstOrDefault();
-                tea.Name = teacher.Name;
-                tea.HireDate = teacher.HireDate;
-                tea.PhoneNo = teacher.PhoneNo;
-                tea.photopath = teacher.photopath;
-                tea.Gender = teacher.Gender;
-                tea.Address = tea.Address;
-                
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "Date is not valid");
             }
             return View(teacher);
         }

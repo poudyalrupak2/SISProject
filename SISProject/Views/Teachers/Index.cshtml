@@ -43,9 +43,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.PhoneNo)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
+           
             <th></th>
         </tr>
     </thead>
@@ -62,9 +60,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PhoneNo)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
+              
                 <td>
                     <a href="@Url.Action("Edit","Teachers",new { id = item.Id })" class="btn btn-primary waves-effect waves-light">
                         <i class="ico ico-right fa fa-edit"></i>Edit
@@ -93,7 +89,7 @@
     $('#example').DataTable({
         "columnDefs": [
 
-            { "orderable": false, "targets": 4 },
+            { "orderable": false, "targets": 3 },
 
 
 

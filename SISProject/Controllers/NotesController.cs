@@ -120,22 +120,32 @@ namespace SISProject.Controllers
             sam.UpdatedFileName = admin.UpdatedFileName;
             sam.UplodedBy = admin.UplodedBy;
             sam.UplodedDate = admin.UplodedDate;
+            sam.path = context.ufiles.Where(m => m.Id ==id).FirstOrDefault().Filename;
             UserArticleRatingsTable ratings1;
-                   IRater rate = new LinearRater(-4, 2, 3, 1);
+            IRater rate = new LinearRater(-4, 2, 0.5,1);
 
             ratings1 = ubt.GetUserArticleRatingsTable(rate);
             List<SuggestedArticlePoints> SAT = ratings1.suggestArticle(ratings1.art, id);
+        
             List<UplodedFile> up = new List<UplodedFile>();
             UplodedFile upa=new UplodedFile();
+          int  i= 0;
+            List<double> p = new List<double>();
+
             foreach (var item in SAT)
             {
-                if (item.ArticleId != 1)
-                {
+                p.Add(item.Points);
+                
+
+                    
                     upa = context.ufiles.Where(m => m.Id == item.ArticleId).FirstOrDefault();
                     up.Add(upa);
-                }
+          
+
             }
+            sam.point = p;
             sam.uplodedFiles = up;
+            double a = sam.point[0];
             var text = System.IO.File.ReadAllText("/Data/NewBehavior.txt");
             List<string> lines = System.IO.File.ReadAllLines("/Data/NewBehavior.txt").ToList();
             int index = text.IndexOf("# End");

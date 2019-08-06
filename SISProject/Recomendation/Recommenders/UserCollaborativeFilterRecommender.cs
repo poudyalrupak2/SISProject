@@ -106,9 +106,9 @@ namespace UserBehavior.Recommenders
                 string a = tags[i].Name;
                 name.Add(a);
             }
-            for (int j = 0; j <= 5; j++)
+            for (int j = 0; j <= art.Count; j++)
             {
-                if (j == 3)
+                if (j ==userid )
                 {
                     continue;
                 }
