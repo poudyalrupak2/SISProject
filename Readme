@@ -1,0 +1,6 @@
+This is simple student information system. Here there are three pannel i.e student teacher and admin.
+Admin can manage teacher and admin and also upload notices.
+Teacher can upload notices and notes.
+Student can view notices and notes.
+In this I have implemented collabrative filtering algorithm for recommendation.Here,
+I have calculated rating with the help of view and downoad of notes by the students.
